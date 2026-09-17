@@ -1,0 +1,33 @@
+\documentclass[10pt,a4paper]{report}
+
+% Caricamento dei 3 pacchetti condivisi dalla radice
+\usepackage{../pacchetti}
+\usepackage{../box-colori}
+\usepackage{../comandi}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{bluscuro}{\textbf{Dispensa di Telecomunicazioni -- Classe 2 TELQ}}}
+\fancyhead[R]{\textcolor{bluscuro}{Prof. Bernardis Pierluigi}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+% Dati del documento
+\title{\Huge{\textcolor{bluscuro}{Dispensa di Telecomunicazioni}}}
+\author{Prof. Bernardis Pierluigi\\ Classe 2 TELQ}
+\date{A.S. 2026/2027}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\include{primo_capitolo}
+\include{secondo_capitolo}
+
+\end{document}

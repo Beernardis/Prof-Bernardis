@@ -1,0 +1,40 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pacchetti}
+
+% Lingua e codifica
+\RequirePackage[italian]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+
+% Matematica e formattazione testo
+\RequirePackage{amsmath, amssymb}
+\RequirePackage{setspace}
+\RequirePackage{enumitem}
+\RequirePackage{xparse}
+
+% Layout e margini
+\RequirePackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\RequirePackage{fancyhdr}
+
+% Tabelle e grafica base
+\RequirePackage[table]{xcolor}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc}
+
+% Box avanzati
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% Links e riferimenti
+\RequirePackage[
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+]{hyperref}
+
+% Impostazioni formattazione testo
+\setlength{\parindent}{0pt}
+\onehalfspacing
+\setlength{\headheight}{15pt}

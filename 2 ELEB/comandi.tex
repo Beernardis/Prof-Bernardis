@@ -1,0 +1,137 @@
+% ============================================================
+% COMANDI TIKZ PER COMPONENTI ELETTRONICI (versione corretta)
+% ============================================================
+
+% --- COLORI ---
+\definecolor{bluscuro}{RGB}{20, 60, 130}
+\definecolor{rossoscuro}{RGB}{170, 30, 30}
+\definecolor{verdescuro}{RGB}{20, 120, 60}
+\definecolor{arancione}{RGB}{230, 130, 20}
+\definecolor{viola}{RGB}{120, 40, 160}
+
+% --- Helper per l'etichetta ---
+% #1 = angolo di rotazione del componente
+% #2 = distanza dall'asse
+% #3 = testo
+\newcommand{\etichettaComponente}[3]{%
+  \ifnum#1=0
+    \node[above] at (0,#2) {#3};
+  \else\ifnum#1=90
+    \node[right] at (#2,0) {#3};
+  \else\ifnum#1=-90
+    \node[left] at (-#2,0) {#3};
+  \else\ifnum#1=180
+    \node[below] at (0,-#2) {#3};
+  \else
+    \node[above] at (0,#2) {#3};
+  \fi\fi\fi\fi
+}
+
+% ============================================================
+% RESISTORI
+% ============================================================
+
+% --- Resistore ANSI (a zig-zag) ---
+\newcommand{\resistoreANSI}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (-1,0) -- (-0.7,0)
+        -- (-0.6,0.3) -- (-0.4,-0.3) -- (-0.2,0.3) -- (0,-0.3)
+        -- (0.2,0.3) -- (0.4,-0.3) -- (0.6,0.3) -- (0.7,0)
+        -- (1,0);
+    \end{scope}
+    \etichettaComponente{#1}{0.55}{#4}
+  \end{scope}
+}
+
+% --- Resistore IEC (rettangolo) ---
+\newcommand{\resistoreIEC}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (-1,0) -- (-0.7,0);
+      \draw[thick] (-0.7,-0.35) rectangle (0.7,0.35);
+      \draw[thick] (0.7,0) -- (1,0);
+    \end{scope}
+    \etichettaComponente{#1}{0.55}{#4}
+  \end{scope}
+}
+
+% ============================================================
+% GENERATORI DI TENSIONE
+% ============================================================
+
+% --- Generatore "spiegazione" (con + e - colorati) ---
+\newcommand{\generatoreSpiegazione}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (0,0) circle (0.5);
+      \draw[thick] (0,-0.5) -- (0,0.5);
+      \draw[thick] (0,0.5) -- (0,1);
+      \draw[thick] (0,-0.5) -- (0,-1);
+      \node at (-0.25,0.3) {\Huge\textbf{\textcolor{rossoscuro}{\(+\)}}};
+      \node at (-0.25,-0.3) {\Huge\textbf{\textcolor{bluscuro}{\(-\)}}};
+    \end{scope}
+    \etichettaComponente{#1}{0.9}{#4}
+  \end{scope}
+}
+
+% --- Generatore "normale" (solo +, cerchio semplice) ---
+\newcommand{\generatore}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (0,0) circle (0.5);
+      \node at (-0.25,0.7) {\Large\textbf{\textcolor{black}{\(+\)}}};
+      \draw[thick] (0,0.5) -- (0,1);
+      \draw[thick] (0,-0.5) -- (0,-1);
+      \draw[thick] (0,-0.5) -- (0,0.5);
+    \end{scope}
+    \etichettaComponente{#1}{0.9}{#4}
+  \end{scope}
+}
+
+% ============================================================
+% CONDENSATORE
+% ============================================================
+\newcommand{\condensatore}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (-0.15,-0.5) -- (-0.15,0.5);
+      \draw[thick] (0.15,-0.5) -- (0.15,0.5);
+      \draw[thick] (-1,0) -- (-0.15,0);
+      \draw[thick] (0.15,0) -- (1,0);
+    \end{scope}
+    \etichettaComponente{#1}{0.75}{#4}
+  \end{scope}
+}
+
+% ============================================================
+% INDUTTORE
+% ============================================================
+\newcommand{\induttore}[4][0]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \begin{scope}[rotate=#1]
+      \draw[thick] (-1,0) -- (-0.8,0)
+        arc[radius=0.2, start angle=180, end angle=0]
+        arc[radius=0.2, start angle=180, end angle=0]
+        arc[radius=0.2, start angle=180, end angle=0]
+        arc[radius=0.2, start angle=180, end angle=0]
+        -- (1,0);
+    \end{scope}
+    \etichettaComponente{#1}{0.6}{#4}
+  \end{scope}
+}
+
+
+% --- Massa (ground) ---
+% Uso: \massa[rotazione]{x}{y}
+%   - rotazione: opzionale, in gradi (default 0)
+%   - x, y: coordinate del punto di connessione (dove arriva il filo)
+% Il simbolo si sviluppa verso il basso (rotazione 0 = triangolo sotto)
+\newcommand{\massa}[3][0]{%
+  \begin{scope}[shift={(#2,#3)}, rotate=#1]
+    % Terminale dal punto di connessione alla base del triangolo
+    \draw[thick] (0,0) -- (0,-0.25);
+    % Triangolo
+    \draw[thick] (-0.3,-0.25) -- (0.3,-0.25) -- (0,-0.55) -- cycle;
+  \end{scope}
+}

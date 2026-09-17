@@ -1,0 +1,270 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{comandi}
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc, positioning, shapes.geometric, arrows.meta}
+
+% ============================================================
+% DEFINIZIONE CHIAVI PGFKEY PER COMPONENTI
+% ============================================================
+\tikzset{
+  componente/rot/.initial=0,
+  componente/label/.initial=,
+  componente/label pos/.initial=above,
+  componente/scala/.initial=1,
+}
+
+\newcommand{\renderLabel}[1]{%
+  \edef\tempLabel{\pgfkeysvalueof{/tikz/componente/label}}%
+  \ifx\tempLabel\empty\else
+    \node[\pgfkeysvalueof{/tikz/componente/label pos}] at ($(center) + (\pgfkeysvalueof{/tikz/componente/rot}+90:#1)$) {\tempLabel};
+  \fi
+}
+
+
+% --- Resistore ANSI (Zig-Zag) ---
+% Sintassi: \resistoreANSI[rot=90, label=$R_1$]{x}{y}
+\newcommand{\resistoreANSI}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    
+    \begin{scope}[rotate=\compRot]
+      \draw[thick] (-1,0) -- (-0.6,0)
+        -- (-0.5,0.25) -- (-0.3,-0.25) -- (-0.1,0.25) -- (0.1,-0.25)
+        -- (0.3,0.25) -- (0.5,-0.25) -- (0.6,0) -- (1,0);
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    \renderLabel{0.35}
+  \end{scope}
+}
+
+% --- Resistore IEC (Rettangolo) ---
+% Sintassi: \resistoreIEC[rot=0, label=$R_1$]{x}{y}
+\newcommand{\resistoreIEC}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    
+    \begin{scope}[rotate=\compRot]
+      \draw[thick] (-1,0) -- (-0.6,0);
+      \draw[thick, fill=white] (-0.6,-0.25) rectangle (0.6,0.25);
+      \draw[thick] (0.6,0) -- (1,0);
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    \renderLabel{0.35}
+  \end{scope}
+}
+
+% ============================================================
+% GENERATORI DI TENSIONE
+% ============================================================
+
+% --- Generatore Spiegazione (Con + rosso e - blu) ---
+\newcommand{\generatoreSpiegazione}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    
+    \begin{scope}[rotate=\compRot]
+      \draw[thick, fill=white] (0,0) circle (0.45);
+      \draw[thick] (0,0.45) -- (0,0.9);
+      \draw[thick] (0,-0.45) -- (0,-0.9);
+      \node[font=\bfseries\small] at (0,0.2) {\textcolor{rossoscuro}{+}};
+      \node[font=\bfseries\small] at (0,-0.2) {\textcolor{bluscuro}{-}};
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    \renderLabel{0.65}
+  \end{scope}
+}
+
+% --- Generatore Ideale Standard ---
+\newcommand{\generatore}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    
+    \begin{scope}[rotate=\compRot]
+      \draw[thick, fill=white] (0,0) circle (0.45);
+      \draw[thick] (0,0.45) -- (0,0.9);
+      \draw[thick] (0,-0.45) -- (0,-0.9);
+      \draw[thick] (0,-0.25) -- (0,0.25);
+      \node[font=\bfseries\small] at (-0.2,0.25) {+};
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    \renderLabel{0.65}
+  \end{scope}
+}
+
+% ============================================================
+% MASSA E RIFERIMENTI
+% ============================================================
+
+% --- Massa (GND) ---
+\newcommand{\massa}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=right, #1}%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    
+    \begin{scope}[rotate=\compRot]
+      \draw[thick] (0,0) -- (0,-0.25);
+      \draw[thick, fill=black!10] (-0.3,-0.25) -- (0.3,-0.25) -- (0,-0.5) -- cycle;
+      \coordinate (center) at (0,-0.25);
+    \end{scope}
+    
+    \renderLabel{0.4}
+  \end{scope}
+}
+
+
+% --- Voltmetro con coordinate label flessibili ---
+\newcommand{\voltmetro}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{
+      /tikz/componente/.cd,
+      rot=0,
+      label=,
+      label pos=above,
+      label x/.initial=none,
+      label y/.initial=none,
+      #1
+    }%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
+    \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
+    
+    % Disegno del componente ruotato
+    \begin{scope}[rotate=\compRot]
+      \node[draw, circle, thick, fill=white, minimum size=0.8cm, inner sep=0pt, font=\bfseries] (v_node) at (0,0) {V};
+      \draw[thick] (0,0.4) -- (0,0.9);
+      \draw[thick] (0,-0.4) -- (0,-0.9);
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    % Gestione etichetta
+    \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
+    \ifx\lblText\empty
+    \else
+      \edef\noneStr{none}%
+      \ifx\lblX\noneStr
+        % Posizionamento automatico ruotato (segue label pos)
+        \renderLabel{0.65}
+      \else
+        % Coordinate manuali fisse rispetto al foglio
+        \node at (\lblX, \lblY) {\lblText};
+      \fi
+    \fi
+  \end{scope}
+}
+
+
+% --- Amperometro ---
+\newcommand{\amperometro}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{
+      /tikz/componente/.cd,
+      rot=0,
+      label=,
+      label pos=above,
+      label x/.initial=none,
+      label y/.initial=none,
+      #1
+    }%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
+    \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
+    
+    \begin{scope}[rotate=\compRot]
+      % Cerchio con la "A"
+      \node[draw, circle, thick, fill=white, minimum size=0.8cm, inner sep=0pt, font=\bfseries] (a_node) at (0,0) {A};
+      
+      % Reofori di collegamento
+      \draw[thick] (0,0.4) -- (0,0.9);
+      \draw[thick] (0,-0.4) -- (0,-0.9);
+      
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    % Gestione etichetta: coordinate manuali oppure posizione standard
+    \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
+    \ifx\lblText\empty
+    \else
+      \edef\noneStr{none}%
+      \ifx\lblX\noneStr
+        \renderLabel{0.65}
+      \else
+        \node at (\lblX, \lblY) {\lblText};
+      \fi
+    \fi
+  \end{scope}
+}
+
+
+
+% --- Batteria a Celle Multiple (Compatta Verticalmente) ---
+\newcommand{\batteria}[3][]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \pgfkeys{
+      /tikz/componente/.cd,
+      rot=0,
+      label=,
+      label pos=above,
+      label x/.initial=none,
+      label y/.initial=none,
+      #1
+    }%
+    \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
+    \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
+    \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
+    
+    % Disegno del componente ruotato
+    \begin{scope}[rotate=\compRot]
+      % Reofori di collegamento ai capi (adattati a 0.15cm)
+      \draw[thick] (0,0.15) -- (0,0.4);
+      \draw[thick] (0,-0.15) -- (0,-0.4);
+      
+      % --- Simbolo Batteria (4 barrette ravvicinate) ---
+      \draw[thick] (-0.3, 0.15) -- (0.3, 0.15);                % Polo + (lunga)
+      \draw[line width=1.6pt] (-0.15, 0.05) -- (0.15, 0.05);   % Polo - (corta/spessa)
+      \draw[thick] (-0.3, -0.05) -- (0.3, -0.05);              % Polo + (lunga)
+      \draw[line width=1.6pt] (-0.15, -0.15) -- (0.15, -0.15); % Polo - (corta/spessa)
+      
+      
+      \coordinate (center) at (0,0);
+    \end{scope}
+    
+    % Gestione etichetta
+    \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
+    \ifx\lblText\empty
+    \else
+      \edef\noneStr{none}%
+      \ifx\lblX\noneStr
+        % Posizionamento automatico ruotato
+        \renderLabel{0.65}
+      \else
+        % Coordinate manuali fisse rispetto al foglio
+        \node at (\lblX, \lblY) {\lblText};
+      \fi
+    \fi
+  \end{scope}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

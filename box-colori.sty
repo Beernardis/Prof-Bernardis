@@ -1,0 +1,71 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{box-colori}[2026/09/17 Colori custom e tcolorbox]
+
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+
+% --- PALETTE COLORI ---
+\definecolor{bluscuro}{RGB}{10, 50, 130}
+\definecolor{arancione}{RGB}{220, 100, 10}
+\definecolor{rossoscuro}{RGB}{160, 20, 20}
+\definecolor{verdescuro}{RGB}{20, 120, 40}
+\definecolor{viola}{RGB}{100, 20, 140}
+\definecolor{gold}{RGB}{212,175,55}
+\definecolor{silver}{RGB}{192,192,192}
+
+% --- TCOLORBOX PERSONALIZZATI ---
+\newtcolorbox{concetto}[1][]{
+  colback=blue!5, colframe=bluscuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Concetto chiave}},
+  colbacktitle=blue!30,
+  coltitle=bluscuro,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{esempio}[1][]{
+  colback=orange!5, colframe=arancione, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Esempio}},
+  colbacktitle=orange!30,
+  coltitle=arancione!80!black,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{attenzione}[1][]{
+  colback=red!5, colframe=rossoscuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Attenzione}},
+  colbacktitle=red!30,
+  coltitle=rossoscuro,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{curiosita}[1][]{
+  colback=green!5, colframe=verdescuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Lo sapevi?}},
+  colbacktitle=green!30,
+  coltitle=verdescuro,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newtcolorbox{esercizio}[1][]{
+  colback=viola!5, colframe=viola, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Esercizio svolto}},
+  colbacktitle=violet!30,
+  coltitle=viola,
+  fonttitle=\bfseries,
+  #1
+}
+
+% Comando per il quadratino colorato
+\newcommand{\colbox}[1]{%
+  \tikz[baseline=0pt]{\draw[black, line width=0.1pt, fill=#1] (0,0) rectangle (8mm,2.5mm);}%
+}

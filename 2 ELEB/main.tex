@@ -1,0 +1,108 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage[table]{xcolor}
+\usepackage{xparse}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{enumitem}
+
+\definecolor{gold}{RGB}{212,175,55}
+\definecolor{silver}{RGB}{192,192,192}
+
+% Comando rapido per il quadratino colorato
+\newcommand{\colbox}[1]{%
+  \tikz[baseline=0pt]{\draw[black, line width=0.1pt, fill=#1] (0,0) rectangle (8mm,2.5mm);}%
+}
+
+\usepackage[
+    colorlinks=true,
+    linkcolor=black, % Utilizza il tuo colore custom per i link dell'indice
+    urlcolor=black,
+    citecolor=black
+]{hyperref}
+
+\setlength{\parindent}{0pt}
+\onehalfspacing
+\setlength{\headheight}{15pt}
+
+\input{comandi}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{bluscuro}{\textbf{Dispensa di STA -- Classe 2 ELEB}}}
+\fancyhead[R]{\textcolor{bluscuro}{Prof. Bernardis Pierluigi}}
+\fancyfoot[C]{\thepage}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+\newtcolorbox{concetto}[1][]{
+  colback=blue!5, colframe=bluscuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Concetto chiave}},
+  colbacktitle=blue!30,
+  coltitle=bluscuro,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{esempio}[1][]{
+  colback=orange!5, colframe=arancione, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Esempio}},
+  colbacktitle=orange!30,
+  coltitle=arancione!80!black,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{attenzione}[1][]{
+  colback=red!5, colframe=rossoscuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Attenzione}},
+  colbacktitle=red!30,
+  coltitle=rossoscuro,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{curiosita}[1][]{
+  colback=green!5, colframe=verdescuro, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Lo sapevi?}},
+  colbacktitle=green!30,
+  coltitle=verdescuro,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{esercizio}[1][]{
+  colback=viola!5, colframe=viola, boxrule=1pt,
+  arc=3mm, breakable,
+  title={\textbf{Esercizio svolto}},
+  colbacktitle=violet!30,
+  coltitle=viola,
+  fonttitle=\bfseries,
+  #1
+}
+
+\title{\huge{\textcolor{bluscuro}{Dispensa di Scienze e Tecnologie Applicate}}}
+\author{Prof. Bernardis Pierluigi\\ Classe 2 ELEB}
+\date{A.S. 2026/2027}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\include{primo_capitolo}
+\include{secondo_capitolo}
+
+\end{document}
