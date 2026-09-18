@@ -1,4 +1,4 @@
-\chapter{Circuiti elettrici e leggi di Kirchhoff}
+\chapter{Teoria dei circuiti elettrici}
 
 \begin{concetto}
 Questo capitolo introduce i concetti fondamentali della teoria dei circuiti: che cos'è un circuito elettrico, che cosa sono un nodo e una maglia, e come si applicano le due leggi di Kirchhoff per analizzare circuiti semplici. Le leggi di Kirchhoff sono gli strumenti di base per risolvere qualsiasi circuito, dal più semplice al più complesso, e costituiscono il ponte tra i concetti di tensione e corrente introdotti nel capitolo precedente e la risoluzione concreta dei problemi circuitali.
@@ -75,9 +75,6 @@ Una \textbf{maglia elementare} (o maglia semplice) è una maglia che non contien
 \begin{attenzione}
 Saper distinguere tra maglie elementari e non elementari è importante perché, applicando la legge delle maglie, si scelgono di norma le maglie elementari. Le maglie non elementari danno equazioni che sono combinazione lineare di quelle elementari e non aggiungono informazione.
 \end{attenzione}
-
-
-
 
 \section{La legge di Kirchhoff alle Tensioni (legge delle maglie)}
 
@@ -230,10 +227,6 @@ La corrente positiva indica che il verso effettivo è quello orario, cioè quell
 Le leggi di Kirchhoff valgono per qualsiasi circuito, indipendentemente dal numero di componenti. Anche i circuiti integrati più complessi, con miliardi di transistori, vengono analizzati con gli stessi due principi. La potenza del metodo sta nella sua semplicità: due leggi, applicate con coerenza, bastano per risolvere qualsiasi rete lineare.
 \end{curiosita}
 
-
-
-
-
 \section{La legge di Kirchhoff alle Correnti (legge dei nodi)}
 \begin{concetto}
 \textbf{LKC (legge dei nodi).} In un nodo, la somma delle correnti che entrano è uguale alla somma delle correnti che escono:
@@ -268,7 +261,6 @@ Dal terzo ramo escono \(4\,[\text{A}]\).
 I_1 + I_2 = I_3 + I_4 \quad \Longrightarrow \quad 5 + 2 = 3 + I_4 \quad \Longrightarrow \quad I_4 = 4\,[\text{A}].
 \]
 \end{esempio}
-
 
 \section{La massa}
 
@@ -328,28 +320,12 @@ Nei circuiti la massa si rappresenta con un simbolo formato da tre linee orizzon
 Nella maggior parte dei circuiti elettronici la massa è il nodo con più connessioni: è il ``filo comune'' a cui fanno riferimento tutti i segnali. Nei telefoni, nei computer e in quasi tutti i dispositivi elettronici, la massa è il punto rispetto al quale si misura ogni tensione. Senza un riferimento comune, parlare di ``\(3{,}3\,[\text{V}]\)'' o ``\(5\,[\text{V}]\)'' non avrebbe alcun significato.
 \end{curiosita}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \section{Partitore di tensione}
 
 \begin{concetto}
 Il \textbf{partitore di tensione} è un circuito formato da due o più resistori in serie. Esso permette di ottenere, ai capi di un resistore, una frazione della tensione totale applicata. È una conseguenza della legge di Ohm e della legge di Kirchhoff alle tensioni.
 \end{concetto}
 
-\subsection{Circuito con due resistori in serie}
 
 Si consideri una serie di due resistori \(R_1\) e \(R_2\) alimentata da una tensione \(V_{\text{in}}\). La tensione di uscita \(V_{\text{out}}\) è prelevata ai capi di \(R_2\). Il terminale negativo del generatore è collegato alla \textbf{massa}, cioè al nodo di riferimento a cui si attribuisce \(V = 0\,[\text{V}]\).
 
@@ -441,7 +417,6 @@ V_{\text{out}} = 12 \cdot \frac{2}{4+2} = 12 \cdot \frac{2}{6} = 4\,[\text{V}].
 Il \textbf{partitore di corrente} è un circuito formato da due o più resistori in parallelo. Esso permette di dividere una corrente totale in più rami. La corrente in ciascun ramo è inversamente proporzionale alla resistenza del ramo stesso.
 \end{concetto}
 
-\subsection{Circuito con due resistori in parallelo}
 
 Si considerino due resistori \(R_1\) e \(R_2\) collegati in parallelo, alimentati da una corrente totale \(I_{\text{tot}}\). La corrente si divide nei due rami in \(I_1\) e \(I_2\). Il nodo inferiore destro è collegato alla \textbf{massa}, cioè al riferimento a cui si attribuisce \(V = 0\,[\text{V}]\).
 
@@ -454,7 +429,7 @@ Si considerino due resistori \(R_1\) e \(R_2\) collegati in parallelo, alimentat
 
   % Ramo sinistro con generatore
   \draw[thick] (0,0) -- (0,1.2);
-  \generatore{0}{2}
+  \generatore[label = $V_{in}$, label dx = 0.8]{0}{2}
   \draw[thick] (0,2.8) -- (0,4);
 
   % Ramo con R1 (verticale, x=2)
@@ -552,6 +527,179 @@ I_2 = 6 \cdot \frac{2}{2+4} = 6 \cdot \frac{2}{6} = 2\,[\text{A}].
 
 Verifica: \(I_1 + I_2 = 4 + 2 = 6\,[\text{A}] = I_{\text{tot}}\).
 
+\section{Resistori in serie e in parallelo}
+
+\begin{concetto}
+Due o più resistori possono essere collegati tra loro in due modi fondamentali: in \textbf{serie} o in \textbf{parallelo}. Da queste due configurazioni si ricava la \textbf{resistenza equivalente}, cioè il valore di un unico resistore che si comporta come l'insieme dei resistori considerati.
+\end{concetto}
+
+\subsection{Il collegamento in serie}
+
+\begin{concetto}
+Due o più resistori sono collegati \textbf{in serie} quando sono disposti uno dopo l'altro, in modo che la \textbf{stessa corrente} li attraversi tutti. Non ci sono diramazioni tra un resistore e il successivo.
+\end{concetto}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick] (0,0) -- (0.5,0);
+  \resistoreANSI[label=$R_1$, label dy=0.5]{1.5}{0}
+  \draw[thick] (2.5,0) -- (3,0);
+  \resistoreANSI[label=$R_2$, label dy=0.5]{4}{0}
+  \draw[thick] (5,0) -- (5.5,0);
+  \resistoreANSI[label=$R_3$, label dy=0.5]{6.5}{0}
+  \draw[thick] (7.5,0) -- (8,0);
+
+  \draw[->, thick, blue] (0.2,0.4) -- (0.6,0.4) node[midway,above] {$I$};
+  \draw[->, thick, blue] (7.6,0.4) -- (8,0.4);
+\end{tikzpicture}
+\end{center}
+
+Applicando la legge di Kirchhoff alle tensioni all'unica maglia, la tensione totale è la somma delle tensioni sui singoli resistori:
+\[
+V = V_1 + V_2 + V_3 = R_1 I + R_2 I + R_3 I = (R_1 + R_2 + R_3) I.
+\]
+Dividendo per \(I\):
+\[
+\boxed{
+R_{eq} = R_1 + R_2 + R_3 + \dots
+}
+\]
+
+\begin{concetto}
+La resistenza equivalente di più resistori in serie è la \textbf{somma} delle singole resistenze. È quindi \textbf{sempre maggiore} della più grande delle resistenze collegate.
+\end{concetto}
+
+\subsection{Il collegamento in parallelo}
+
+\begin{concetto}
+Due o più resistori sono collegati \textbf{in parallelo} quando sono connessi tra gli stessi due nodi, in modo che ai loro capi ci sia la \textbf{stessa tensione}. La corrente totale si ripartisce tra i vari rami.
+\end{concetto}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick] (0,3) -- (6,3);
+  \draw[thick] (0,0) -- (6,0);
+
+  \draw[thick] (1,3) -- (1,2.5);
+  \resistoreANSI[rot=90, label=$R_1$, label dx=0.5, label dy=0]{1}{1.5}
+  \draw[thick] (1,0.51) -- (1,0);
+
+  \draw[thick] (3,3) -- (3,2.5);
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{3}{1.5}
+  \draw[thick] (3,0.51) -- (3,0);
+
+  \draw[thick] (5,3) -- (5,2.5);
+  \resistoreANSI[rot=90, label=$R_3$, label dx=0.5, label dy=0]{5}{1.5}
+  \draw[thick] (5,0.51) -- (5,0);
+
+  \filldraw (1,3) circle (0.05);
+  \filldraw (3,3) circle (0.05);
+  \filldraw (5,3) circle (0.05);
+  \filldraw (1,0) circle (0.05);
+  \filldraw (3,0) circle (0.05);
+  \filldraw (5,0) circle (0.05);
+
+  \draw[->, thick, blue] (0.2,3.3) -- (0.8,3.3) node[midway,above] {$I$};
+\end{tikzpicture}
+\end{center}
+
+Applicando la legge di Kirchhoff alle correnti al nodo superiore, la corrente totale è la somma delle correnti nei singoli rami:
+\[
+I = I_1 + I_2 + I_3 = \frac{V}{R_1} + \frac{V}{R_2} + \frac{V}{R_3} = V \left( \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} \right).
+\]
+Dividendo per \(V\):
+\[
+\boxed{
+\frac{1}{R_{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \dots \quad \Longrightarrow \quad R_{eq} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3} + \dots}
+}
+\]
+
+\begin{concetto}
+La resistenza equivalente di più resistori in parallelo è \textbf{sempre minore} della più piccola delle resistenze collegate. Aggiungere un ramo in parallelo offre alla corrente un percorso in più, quindi la resistenza complessiva diminuisce.
+\end{concetto}
+
+\subsubsection{Il caso di due resistori in parallelo}
+
+Per due soli resistori in parallelo la formula si semplifica:
+\[
+\boxed{
+R_{eq} = \frac{1}{\frac{1}{R_1}+\frac{1}{R_2}} = \frac{R_1 \cdot R_2}{R_1 + R_2}
+}
+\]
+
+\begin{esempio}
+\textbf{Due resistori in parallelo.} Due resistori \(R_1 = 100\,\Omega\) e \(R_2 = 150\,\Omega\) sono in parallelo. La resistenza equivalente è:
+\[
+R_{eq} = \frac{100 \cdot 150}{100 + 150} = \frac{15000}{250} = 60\,\Omega.
+\]
+\(60\,\Omega\) è minore sia di \(100\,\Omega\) sia di \(150\,\Omega\), come deve essere.
+\end{esempio}
+
+\subsection{Serie e parallelo combinati}
+
+Molti circuiti contengono resistori collegati in modo misto. Per calcolare la resistenza equivalente si procede \textbf{per riduzioni successive}: si individuano le parti puramente in serie o puramente in parallelo, si sostituiscono con la loro resistenza equivalente, e si ripete fino a ottenere un unico resistore.
+
+\begin{esempio}
+\textbf{Circuito misto.} \(R_1 = 10\,\Omega\) in serie con il parallelo di \(R_2 = 20\,\Omega\) e \(R_3 = 30\,\Omega\).
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick] (0,1.5) -- (0.5,1.5);
+  \resistoreANSI[label=$R_1$, label dy=0.5]{1.5}{1.5}
+  \draw[thick] (2.5,1.5) -- (3,1.5);
+
+  \filldraw (3,1.5) circle (0.05);
+  \filldraw (5,1.5) circle (0.05);
+
+  \draw[thick] (3,1.5) -- (3,2.5);
+  \resistoreANSI[rot=0, label=$R_2$, label dx=0, label dy=-0.45]{4}{2.5}
+  \draw[thick] (5,2.5) -- (5,1.5);
+
+  \draw[thick] (3,1.5) -- (3,0.5);
+  \resistoreANSI[rot=0, label=$R_3$, label dx=0, label dy=0.45]{4}{0.5}
+  \draw[thick] (5,0.5) -- (5,1.5);
+
+  \draw[thick] (5,1.5) -- (6,1.5);
+\end{tikzpicture}
+\end{center}
+
+Prima il parallelo:
+\[
+R_{23} = \frac{R_2 \cdot R_3}{R_2 + R_3} = \frac{20 \cdot 30}{20 + 30} = 12\,\Omega.
+\]
+Poi la serie:
+\[
+R_{eq} = R_1 + R_{23} = 10 + 12 = 22\,\Omega.
+\]
+\end{esempio}
+
+\begin{attenzione}
+Per riconoscere se due resistori sono in serie o in parallelo bisogna guardare la \textbf{topologia del circuito}, non la loro posizione nel disegno. Due resistori sono in serie se sono percorsi dalla stessa corrente (non c'è alcun nodo tra loro); sono in parallelo se sono collegati tra gli stessi due nodi.
+\end{attenzione}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section{Esercizi}
@@ -621,22 +769,4 @@ I = \frac{\mathcal{E}}{R_1 + R_2 + R_3} = \frac{9}{1 + 2 + 3} = 1{,}5\,[\text{A}
   \item In una maglia ci sono due pile in serie, \(\mathcal{E}_1 = 4{,}5\,[\text{V}]\) e \(\mathcal{E}_2 = 1{,}5\,[\text{V}]\), e un resistore \(R = 3\,[\Omega]\). Calcolare la corrente.
   \item In una maglia ci sono una pila da \(9\,[\text{V}]\), un resistore \(R_1 = 2\,[\Omega]\) e un resistore incognito \(R_2\). Se la corrente vale \(1{,}5\,[\text{A}]\), calcolare \(R_2\).
   \item In una maglia circola una corrente di \(0{,}5\,[\text{A}]\). La pila ha una fem di \(6\,[\text{V}]\). Calcolare la resistenza totale del circuito.
-\end{enumerate}
-
-\subsection{Esercizi combinati (nodi e maglie)}
-
-\begin{esercizio}
-\textbf{Esercizio svolto.} Si consideri un circuito con due maglie elementari. Nel ramo di sinistra c'è una pila \(\mathcal{E}_1 = 10\,[\text{V}]\) e un resistore \(R_1 = 2\,[\Omega]\). Nel ramo centrale c'è un resistore \(R_2 = 4\,[\Omega]\). Nel ramo di destra c'è una pila \(\mathcal{E}_2 = 4\,[\text{V}]\) e un resistore \(R_3 = 2\,[\Omega]\). Le due pile hanno il polo positivo rivolto verso l'alto.
-
-\smallskip
-\textbf{Soluzione.} Si scelgono i versi delle correnti e si scrivono le equazioni. Applicando la legge dei nodi al nodo superiore e la legge delle maglie alle due maglie elementari, si ottiene un sistema di tre equazioni in tre incognite. La risoluzione fornisce i valori delle tre correnti. Se una corrente risulta negativa, il verso reale è opposto a quello scelto inizialmente.
-\end{esercizio}
-
-\textbf{Esercizi da svolgere.}
-
-\begin{enumerate}[leftmargin=1cm]
-  \item Un circuito ha due maglie elementari. Nella maglia di sinistra c'è una pila \(\mathcal{E}_1 = 12\,[\text{V}]\) e un resistore \(R_1 = 3\,[\Omega]\); nella maglia di destra c'è una pila \(\mathcal{E}_2 = 6\,[\text{V}]\) e un resistore \(R_3 = 3\,[\Omega]\); nel ramo centrale c'è un resistore \(R_2 = 6\,[\Omega]\). Calcolare le correnti nei tre rami.
-  \item Un circuito ha due maglie elementari. Nella maglia di sinistra c'è una pila \(\mathcal{E}_1 = 9\,[\text{V}]\) e un resistore \(R_1 = 1\,[\Omega]\); nella maglia di destra c'è una pila \(\mathcal{E}_2 = 3\,[\text{V}]\) e un resistore \(R_3 = 2\,[\Omega]\); nel ramo centrale c'è un resistore \(R_2 = 3\,[\Omega]\). Calcolare le correnti nei tre rami.
-  \item In un circuito con due maglie elementari, il ramo centrale è percorso da una corrente \(I_2 = 0{,}5\,[\text{A}]\). Se la corrente nella maglia di sinistra è \(I_1 = 1\,[\text{A}]\), calcolare la corrente nella maglia di destra \(I_3\).
-  \item Un circuito ha tre resistori in parallelo collegati a una pila. Quanti nodi ha? Quante maglie elementari? 
 \end{enumerate}

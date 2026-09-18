@@ -1,3 +1,4 @@
+% primo_capitolo.tex
 
 \chapter{Carica, campo e grandezze elettriche}
 
@@ -236,10 +237,13 @@ Per capire questo concetto, si consideri un campo elettrico uniforme, per esempi
 \centering
 \begin{tikzpicture}[scale=1]
   % Piastre
-  \draw[thick, fill=red!10] (-3,3) -- (3,3) -- (3,3.15) -- (-3,3.15) -- cycle;
-  \draw[thick, fill=blue!10] (-3,-3) -- (3,-3) -- (3,-3.15) -- (-3,-3.15) -- cycle;
-  \node[right] at (3.2,3.07) {\(+\)};
-  \node[right] at (3.2,-3.07) {\(-\)};
+  \draw[thick, fill=red!10] (-3,3) -- (3,3) -- (3,3.5) -- (-3,3.5) -- cycle;
+  \draw[thick, fill=blue!10] (-3,-3) -- (3,-3) -- (3,-3.5) -- (-3,-3.5) -- cycle;
+  \node[right] at (-3,3.25) {+  +  +  +  +  +  +  +  +  +  +  +  +  +  +};
+
+    \foreach \i [evaluate=\i as \x using (-3 + (\i-1)*(6/14)*1.06)] in {1,...,13} {
+    \node[right] at (\x,-3.25){\(-\)};
+  }
 
   % Linee di campo
   \foreach \x in {-2.5,-1.5,-0.5,0.5,1.5,2.5} {
@@ -327,38 +331,52 @@ Georg Simon Ohm, all'inizio del XIX secolo, si pose una domanda semplice: \emph{
 
 Lo schema dell'esperimento è il seguente:
 \begin{itemize}[leftmargin=1cm]
-  \item un \textbf{generatore di tensione variabile} applica ai capi del provino una tensione \(V\), che può essere cambiata a piacere;
+  \item un \textbf{generatore di tensione variabile} applica ai capi del provino una tensione \(V\), che può essere cambiata a piacere, rappresentata nel circuito seguente con una batteria;
   \item un \textbf{voltmetro} misura la tensione \(V\) ai capi del provino;
   \item un \textbf{amperometro} misura la corrente \(I\) che lo attraversa.
 \end{itemize}
 
+
+
+
+
 \begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[scale=1]
-  % Maglia rettangolare
-  \draw[thick] (0,0) rectangle (6,3);
+  \centering
+  \begin{tikzpicture}
+    % Usa il comando senza graffe extra in coda
+    
 
-  % Generatore (lato sinistro)
-  \generatore[0]{0}{1.5}{\(\mathcal{E}\)}
+    % Istruzioni TikZ terminate correttamente da punto e virgola
+    \draw[thick, fill=gray!20] (5.7,0.8) rectangle (6.3,2.2);
+    \node[left] at (5.7,1.5) {provino};
+    \voltmetro[label={voltmetro}, label x=1.3, label y=0.05]{7.5}{1.5}
 
-  % Provino cilindrico (lato destro) - disegnato come un rettangolo allungato
-  \draw[thick, fill=gray!20] (5.7,1.0) rectangle (6.3,2.0);
-  \node[left] at (5.7,1.5) {provino};
+    \draw[thick] (0, 1.9) -- (0, 3);
+    \draw[thick] (0, 3) -- (2.1, 3);
+    \draw[thick] (3.9, 3) -- (7.5, 3);
+    \draw[thick] (6, 3) -- (6, 2.2);
+    \draw[thick] (7.5, 3) -- (7.5, 2.2);
+    \draw[thick] (6, 0) -- (6, 0.8);
+    \draw[thick] (7.5, 0) -- (7.5, 0.6);
+    \draw[thick] (7.5, 0) -- (0, 0);
+    \draw[thick] (0, 1.1) -- (0, 0);
 
-  % Amperometro in serie (lato superiore)
-  \node[draw, circle, thick, fill=white, inner sep=3pt] at (3,3) {A};
+  \amperometro[rot = 90, label={amperometro}, label x=0, label y=0.7]{3}{3}
 
-  % Voltmetro in parallelo al provino
-  \draw[thick] (6,3) -- (7.5,3);
-  \draw[thick] (6,0) -- (7.5,0);
-  \draw[thick] (7.5,0) -- (7.5,3);
-  \node[draw, circle, thick, fill=white, inner sep=3pt] at (7.5,1.5) {V};
+  \batteria[label={$V$}, label x = 0.5, label y = 0]{0}{1.5}
 
-  % Etichette
-  \node[above] at (3,3.3) {amperometro};
-  \node[right] at (7.9,1.5) {voltmetro};
-\end{tikzpicture}
+
+
+  \end{tikzpicture}
+  \caption{Schema di misurazione}
+  \label{fig:schema_misura}
 \end{figure}
+
+
+
+
+
+
 
 
 Ohm variò la tensione e registrò, per ogni valore, la corrente. Riportando i dati sul piano cartesiano, con:
@@ -436,8 +454,8 @@ Consideriamo un resistore disposto orizzontalmente, percorso da una corrente \(I
 \centering
 \begin{tikzpicture}[scale=1.2]
   % --- Resistore in orizzontale ---
-  \resistoreANSI[0]{0}{0}{\(R\)}
-
+% Vecchio: \resistoreANSI[0]{0}{0}{\(R\)}
+  \resistoreANSI[label=$R_1$, label dx = 0, label dy = 0.6]{0}{0}
   % --- Frecce della corrente (verso destra) ---
   \draw[-, thick, black] (-1.5,0) -- (-1.2,0);
   \draw[->, thick, blue] (-1.2,0) -- (-1,0);
@@ -509,9 +527,9 @@ Un componente progettato specificamente per avere una resistenza ben definita si
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[scale=1]
-  \resistoreIEC{0}{0}{}
-  \node[below] at (0,-1) {\textbf{Simbolo IEC}};
-  \resistoreANSI{4}{0}{}
+% Vecchio: \resistoreIEC{0}{0}{}
+\resistoreIEC{0}{0}  \node[below] at (0,-1) {\textbf{Simbolo IEC}};
+\resistoreANSI{4}{0}
   \node[below] at (4,-1) {\textbf{Simbolo ANSI}};
 \end{tikzpicture}
 \end{figure}

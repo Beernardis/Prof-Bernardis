@@ -1,0 +1,566 @@
+% quarto_capitolo.tex
+
+\chapter{Metodi di risoluzione delle reti}
+
+\begin{concetto}
+Nei capitoli precedenti abbiamo imparato a conoscere i componenti fondamentali di un circuito e le due leggi di Kirchhoff. Applicando queste leggi a un circuito semplice, con una sola maglia o con pochi nodi, la soluzione si ottiene con pochi passaggi. Quando però il circuito diventa più complesso, con più generatori e più maglie, il numero di equazioni da scrivere cresce rapidamente e la risoluzione diretta diventa laboriosa.
+
+In questo capitolo introduciamo alcuni \textbf{metodi di risoluzione} che permettono di semplificare il problema. Alcuni riducono il numero di equazioni da scrivere, altri trasformano una rete complessa in una rete equivalente più semplice. L'obiettivo non è sostituire le leggi di Kirchhoff, ma usarle in modo più intelligente.
+\end{concetto}
+
+\section{Il metodo delle correnti di maglia}
+
+\begin{concetto}
+Il \textbf{metodo delle correnti di maglia} consiste nell'associare a ogni maglia elementare del circuito una \textbf{corrente fittizia} che la percorre in senso chiuso. Le correnti reali dei rami si ottengono poi come combinazione algebrica delle correnti di maglia.
+\end{concetto}
+
+L'idea alla base del metodo è semplice: invece di scrivere un'equazione per ogni ramo del circuito, si scrive \textbf{un'equazione per ogni maglia elementare}. In questo modo il numero di equazioni è pari al numero di maglie, che è generalmente inferiore al numero di rami.
+
+\subsection{La procedura}
+
+La procedura per applicare il metodo delle correnti di maglia è la seguente:
+
+\begin{enumerate}[leftmargin=1cm]
+  \item si individuano tutte le \textbf{maglie elementari} del circuito;
+  \item si assegna a ciascuna maglia una \textbf{corrente di maglia} \(i_1, i_2, \dots\), scegliendo arbitrariamente un verso di percorrenza (di solito tutte nello stesso verso, per esempio orario);
+  \item si scrive per ogni maglia la \textbf{legge di Kirchhoff alle tensioni}, esprimendo le cadute di tensione sui resistori in funzione delle correnti di maglia;
+  \item si risolve il sistema di equazioni così ottenuto, trovando i valori delle correnti di maglia;
+  \item si ricavano le \textbf{correnti reali dei rami} sommando algebricamente le correnti di maglia che attraversano quel ramo.
+\end{enumerate}
+
+\begin{attenzione}
+La corrente di maglia non è una corrente fisica: è un artificio di calcolo. Solo le correnti dei rami hanno un significato fisico. In un ramo percorso da più correnti di maglia, la corrente reale è la somma algebrica di esse.
+\end{attenzione}
+
+\subsection{Esempio di applicazione}
+
+\begin{esempio}
+\textbf{Circuito con due maglie.}  Vogliamo calcolare le correnti che attraversano i rami.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Nodi
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,3);
+  \coordinate (D) at (4,3);
+  \coordinate (E) at (8,3);
+  \coordinate (F) at (8,0);
+
+  % Rami
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (B) -- (4, 0.5);
+  \draw[thick] (D) -- (4, 2.5);
+  \draw[thick] (1, 3) -- (C);
+  \draw[thick] (2.99, 3) -- (D);
+  \draw[thick] (0, 0.6) -- (A);
+  \draw[thick] (0, 2.4) -- (C);
+  \draw[thick] (D) -- (5, 3);
+  \draw[thick] (6.98, 3) -- (E);
+  \draw[thick] (8, 2.4) -- (E);
+  \draw[thick] (8, 0.6) -- (F);
+  \draw[thick] (6.98, 0) -- (F);
+  \draw[thick] (5, 0) -- (B);
+
+
+  % Componenti
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}{}
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}{}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}{}
+  \resistoreANSI[rot=0, label=$R_4$, label dy=-0.5]{6}{3}{}
+  \resistoreANSI[rot=0, label=$R_5$, label dy=0.5]{6}{0}{}
+  \generatore[rot=0, label = $V_1$, label dx = 0.8]{0}{1.5}
+  \generatore[rot=0, label = $V_2$, label dx = -0.7]{8}{1.5}
+
+  % Correnti di maglia
+  \draw[->, thick, blue] (1.7,1.9) arc (140:-70:0.8);
+  \node[blue] at (2.4,1.5) {$I_1$};
+  \draw[->, thick, red] (5.5,1.9) arc (140:-70:0.8);
+  \node[red] at (6.2,1.5) {$I_2$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Soluzione.} Individuiamo due maglie elementari: la maglia di sinistra (percorsa da \(I_1\) in senso orario) e la maglia di destra (percorsa da \(I_2\) in senso orario).
+
+Per la maglia di sinistra, applicando la LKT:
+\[
+V_1 - R_1 I_1 - R_3 I_1 - R_2 (I_1 - I_2) = 0.
+\]
+Il termine \(R_2(I_1 - I_2)\) tiene conto del fatto che il resistore \(R_3\) è percorso sia da \(I_1\) sia da \(I_2\), in versi opposti.
+
+Per la maglia di destra:
+\[
+-V_2 - R_4 I_2 - R_5 I_2 - R_2 (I_2 - I_1) = 0.
+\]
+
+Raccogliendo i termini:
+\[
+\begin{cases}
+(R_1 + R_3 + R_2)\,I_1 - R_2\,I_2 = V_1 \\
+-R_2\,I_1 + (R_4 + R_5 + R_2)\,I_2 = -V_2
+\end{cases}
+\]
+
+Con valori numerici \(R_1 = 1\,\Omega\), \(R_2 = 3\,\Omega\), \(R_3 = 1\,\Omega\), \(R_4 = 1\,\Omega\), \(R_5 = 1\,\Omega\), \(V_1 = 10\,\text{V}\), \(V_2 = 4\,\text{V}\):
+\[
+\begin{cases}
+5\,I_1 - 3\,I_2 = 10 \\
+-3\,I_1 + 5\,I_2 = -4
+\end{cases}
+\]
+
+Risolvendo il sistema, troviamo i valori delle due correnti fittizie:
+\[
+I_1 = 2{,}375\,\text{A} \qquad I_2 = 0{,}625\,\text{A}.
+\]
+La corrente nel ramo centrale (percorso da \(R_2\)) è la differenza tra le due correnti di maglia:
+\[
+I_{R_2} = I_1 - I_2 = 2{,}375 - 0{,}625 = 1{,}75\,\text{A}.
+\]
+\end{esempio}
+
+\section{Il principio di sovrapposizione degli effetti}
+
+\begin{concetto}
+Il \textbf{principio di sovrapposizione degli effetti} afferma che in un circuito lineare con più generatori, la corrente (o la tensione) in un qualsiasi ramo è la \textbf{somma algebrica} degli effetti prodotti da ciascun generatore considerato singolarmente, con tutti gli altri generatori spenti.
+\end{concetto}
+
+Spegnere un generatore significa:
+\begin{itemize}[leftmargin=1cm]
+  \item sostituire un \textbf{generatore di tensione} con un \textbf{corto circuito} (cioè un filo con resistenza nulla);
+  \item sostituire un \textbf{generatore di corrente} con un \textbf{circuito aperto}.
+\end{itemize}
+
+\subsection{La procedura}
+
+\begin{enumerate}[leftmargin=1cm]
+  \item si considera acceso un solo generatore alla volta, spegnendo tutti gli altri;
+  \item per ogni generatore, si calcola la corrente (o la tensione) richiesta nel ramo di interesse;
+  \item si sommano algebricamente i contributi di tutti i generatori, tenendo conto dei versi.
+\end{enumerate}
+
+\begin{attenzione}
+Il principio di sovrapposizione vale solo per circuiti \textbf{lineari}, cioè quelli in cui la relazione tra tensione e corrente è lineare (come la legge di Ohm). Non vale per componenti non lineari come diodi o transistor.
+\end{attenzione}
+
+
+
+\begin{esempio}
+\textbf{Circuito con due maglie risolto con la sovrapposizione degli effetti.} 
+Riprendiamo lo stesso circuito dell'esempio precedente: due maglie, cinque resistori e due generatori. Vogliamo calcolare la corrente nel ramo centrale (quello percorso da \(R_2\)) usando il principio di sovrapposizione degli effetti.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Nodi
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,3);
+  \coordinate (D) at (4,3);
+  \coordinate (E) at (8,3);
+  \coordinate (F) at (8,0);
+
+  % Rami
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (B) -- (4, 0.5);
+  \draw[thick] (D) -- (4, 2.5);
+  \draw[thick] (1, 3) -- (C);
+  \draw[thick] (2.99, 3) -- (D);
+  \draw[thick] (0, 0.6) -- (A);
+  \draw[thick] (0, 2.4) -- (C);
+  \draw[thick] (D) -- (5, 3);
+  \draw[thick] (6.98, 3) -- (E);
+  \draw[thick] (8, 2.4) -- (E);
+  \draw[thick] (8, 0.6) -- (F);
+  \draw[thick] (6.98, 0) -- (F);
+  \draw[thick] (5, 0) -- (B);
+
+  % Componenti
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
+  \resistoreANSI[rot=0, label=$R_4$, label dy=-0.5]{6}{3}
+  \resistoreANSI[rot=0, label=$R_5$, label dy=0.5]{6}{0}
+  \generatore[rot=0, label=$V_1$, label dx=0.8]{0}{1.5}
+  \generatore[rot=0, label=$V_2$, label dx=-0.7]{8}{1.5}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Procedura.} Il principio di sovrapposizione degli effetti si applica in tre passi:
+\begin{enumerate}[leftmargin=1cm]
+  \item si spegne \(V_2\) (sostituendolo con un corto circuito) e si calcola il contributo di \(V_1\) da solo;
+  \item si spegne \(V_1\) (sostituendolo con un corto circuito) e si calcola il contributo di \(V_2\) da solo;
+  \item si sommano algebricamente i due contributi per ottenere la corrente reale.
+\end{enumerate}
+
+\subsection*{Passo 1: acceso solo \(V_1\)}
+
+Spegniamo \(V_2\) sostituendolo con un filo (corto circuito). Il circuito diventa:
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Nodi
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,3);
+  \coordinate (D) at (4,3);
+  \coordinate (E) at (8,3);
+  \coordinate (F) at (8,0);
+
+  % Rami
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (B) -- (4, 0.5);
+  \draw[thick] (D) -- (4, 2.5);
+  \draw[thick] (1, 3) -- (C);
+  \draw[thick] (2.99, 3) -- (D);
+  \draw[thick] (0, 0.6) -- (A);
+  \draw[thick] (0, 2.4) -- (C);
+  \draw[thick] (D) -- (5, 3);
+  \draw[thick] (6.98, 3) -- (E);
+  % V2 spento: corto circuito (linea continua)
+  \draw[thick] (8, 3) -- (8, 0);
+  \draw[thick] (6.98, 0) -- (F);
+  \draw[thick] (5, 0) -- (B);
+
+  % Componenti
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
+  \resistoreANSI[rot=0, label=$R_4$, label dy=-0.5]{6}{3}
+  \resistoreANSI[rot=0, label=$R_5$, label dy=0.5]{6}{0}
+  \generatore[rot=0, label=$V_1$, label dx=0.8]{0}{1.5}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 2: acceso solo \(V_2\)}
+
+Spegniamo \(V_1\) sostituendolo con un filo (corto circuito). Il circuito diventa:
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Nodi
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,3);
+  \coordinate (D) at (4,3);
+  \coordinate (E) at (8,3);
+  \coordinate (F) at (8,0);
+
+  % Rami
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (B) -- (4, 0.5);
+  \draw[thick] (D) -- (4, 2.5);
+  \draw[thick] (1, 3) -- (C);
+  \draw[thick] (2.99, 3) -- (D);
+  % V1 spento: corto circuito (linea continua)
+  \draw[thick] (0, 3) -- (0, 0);
+  \draw[thick] (D) -- (5, 3);
+  \draw[thick] (6.98, 3) -- (E);
+  \draw[thick] (8, 2.4) -- (E);
+  \draw[thick] (8, 0.6) -- (F);
+  \draw[thick] (6.98, 0) -- (F);
+  \draw[thick] (5, 0) -- (B);
+
+  % Componenti
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
+  \resistoreANSI[rot=0, label=$R_4$, label dy=-0.5]{6}{3}
+  \resistoreANSI[rot=0, label=$R_5$, label dy=0.5]{6}{0}
+  \generatore[rot=0, label=$V_2$, label dx=-0.7]{8}{1.5}
+\end{tikzpicture}
+\end{center}
+
+\subsection*{Passo 3: somma dei contributi}
+
+La corrente nel ramo centrale è la somma algebrica dei due contributi:
+\[
+I_{R_2} = I_{R_2}^{(1)} + I_{R_2}^{(2)}.
+\]
+Se i due contributi hanno lo stesso verso si sommano, se hanno verso opposto si sottraggono.
+\end{esempio}
+\section{Il teorema di Thévenin}
+
+\begin{concetto}
+Il \textbf{teorema di Thévenin} afferma che qualsiasi rete lineare, vista da due terminali A e B, può essere sostituita da un \textbf{circuito equivalente} formato da un solo generatore di tensione \(V_{Th}\) in serie con un solo resistore \(R_{Th}\).
+\end{concetto}
+
+I due parametri del circuito equivalente si calcolano così:
+\begin{itemize}[leftmargin=1cm]
+  \item \(V_{Th}\) è la \textbf{tensione a vuoto} tra i terminali A e B, cioè la tensione misurata quando non è collegato alcun carico;
+  \item \(R_{Th}\) è la \textbf{resistenza equivalente} vista dai terminali A e B, calcolata spegnendo tutti i generatori indipendenti (generatori di tensione cortocircuitati, generatori di corrente aperti).
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Rete originale
+  \draw[thick, fill=gray!10] (0,0) rectangle (2.5,2);
+  \node at (1.25,1) {Rete lineare};
+  \draw[thick] (2.5,1.5) -- (3.5,1.5);
+  \draw[thick] (2.5,0.5) -- (3.5,0.5);
+  \filldraw (3.5,1.5) circle (0.05) node[right] {A};
+  \filldraw (3.5,0.5) circle (0.05) node[right] {B};
+
+  % Freccia di equivalenza
+  \draw[->, thick] (4.5,1) -- (5.5,1) node[midway,above] {\(\equiv\)};
+
+  % Circuito equivalente di Thévenin
+  \draw[thick] (6.5,0.5) -- (6.5,1.5);
+  \generatore[rot=0, label=$V_{Th}$, label dx=0.7, label dy=0]{6.5}{1}{}
+  \draw[thick] (6.5,1.9) -- (6.5,2.5) -- (8,2.5);
+  \resistoreANSI[rot=0, label=$R_{Th}$, label dy=0.5]{7.25}{2.5}{}
+  \draw[thick] (8,2.5) -- (8.5,2.5) node[right] {A};
+  \draw[thick] (6.5,0.1) -- (6.5,-0.5) -- (8.5,-0.5) node[right] {B};
+\end{tikzpicture}
+\end{center}
+
+\begin{esempio}
+\textbf{Calcolo del circuito equivalente.} Si consideri il circuito in figura, con \(V = 12\,\text{V}\), \(R_1 = 4\,\Omega\), \(R_2 = 6\,\Omega\). Vogliamo il circuito equivalente di Thévenin visto ai capi di \(R_2\).
+
+\textbf{Tensione di Thévenin.} Ai capi di \(R_2\) la tensione a vuoto è quella del partitore:
+\[
+V_{Th} = V \frac{R_2}{R_1 + R_2} = 12 \cdot \frac{6}{4+6} = 7{,}2\,\text{V}.
+\]
+
+\textbf{Resistenza di Thévenin.} Spegniamo il generatore (cortocircuito) e guardiamo la resistenza tra A e B: \(R_1\) e \(R_2\) risultano in parallelo.
+\[
+R_{Th} = R_1 \parallel R_2 = \frac{R_1 R_2}{R_1 + R_2} = \frac{4 \cdot 6}{4+6} = 2{,}4\,\Omega.
+\]
+
+Il circuito equivalente è quindi un generatore da \(7{,}2\,\text{V}\) in serie con un resistore da \(2{,}4\,\Omega\).
+\end{esempio}
+
+\section{Il teorema di Norton}
+
+\begin{concetto}
+Il \textbf{teorema di Norton} è il duale del teorema di Thévenin. Afferma che qualsiasi rete lineare, vista da due terminali A e B, può essere sostituita da un \textbf{circuito equivalente} formato da un solo generatore di corrente \(I_N\) in parallelo con un resistore \(R_N\).
+\end{concetto}
+
+I parametri si calcolano così:
+\begin{itemize}[leftmargin=1cm]
+  \item \(I_N\) è la \textbf{corrente di cortocircuito} tra i terminali A e B;
+  \item \(R_N\) è la stessa resistenza equivalente di Thévenin: \(R_N = R_{Th}\).
+\end{itemize}
+
+La relazione tra i parametri di Thévenin e Norton è:
+\[
+V_{Th} = I_N \cdot R_N, \qquad I_N = \frac{V_{Th}}{R_{Th}}.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  % Circuito equivalente di Norton
+  \draw[thick] (0,0) -- (0,3);
+  \generatore[rot=90, label=$I_N$, label dx=-0.7, label dy=0]{0}{1.5}{}
+  \draw[thick] (0,0) -- (2,0);
+  \draw[thick] (0,3) -- (2,3);
+  \resistoreANSI[rot=90, label=$R_N$, label dx=0.5, label dy=0]{2}{1.5}{}
+  \draw[thick] (2,0) -- (3,0) node[right] {B};
+  \draw[thick] (2,3) -- (3,3) node[right] {A};
+\end{tikzpicture}
+\end{center}
+
+\section{Il metodo dei potenziali ai nodi}
+
+\begin{concetto}
+Il \textbf{metodo dei potenziali ai nodi} consiste nell'assumere come incognite i \textbf{potenziali dei nodi} del circuito, invece delle correnti. Si sceglie un nodo come riferimento (massa, potenziale \(0\,\text{V}\)) e si scrivono le equazioni di Kirchhoff alle correnti per tutti gli altri nodi.
+\end{concetto}
+
+\subsection{La procedura}
+
+\begin{enumerate}[leftmargin=1cm]
+  \item si sceglie un nodo come \textbf{riferimento} (massa) e si pone \(V = 0\);
+  \item si assegnano simboli ai potenziali degli altri nodi (\(V_1, V_2, \dots\));
+  \item per ogni nodo (tranne quello di riferimento) si scrive la \textbf{legge di Kirchhoff alle correnti}, esprimendo le correnti in funzione dei potenziali dei nodi e delle resistenze;
+  \item si risolve il sistema di equazioni, trovando i potenziali;
+  \item si ricavano le correnti nei rami applicando la legge di Ohm.
+\end{enumerate}
+
+\begin{esempio}
+\textbf{Circuito con due nodi.} Si consideri il circuito in figura, con un generatore \(V\) e tre resistori.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick] (0,0) -- (0,3);
+  \generatore[rot=90, label=$V$, label dx=-0.7, label dy=0]{0}{1.5}{}
+  \draw[thick] (0,0) -- (4,0);
+  \draw[thick] (0,3) -- (1,3);
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{3}{}
+  \draw[thick] (3,3) -- (4,3);
+  \draw[thick] (4,3) -- (4,2);
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}{}
+  \draw[thick] (4,1) -- (4,0);
+  \draw[thick] (3,3) -- (3,0);
+  \resistoreANSI[rot=90, label=$R_3$, label dx=0.5, label dy=0]{3}{1.5}{}
+  \filldraw (3,3) circle (0.05) node[above] {A};
+  \massa{3}{0}{}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Soluzione.} Scegliamo il nodo inferiore come riferimento (\(V = 0\)). Il nodo A ha potenziale \(V_A\) incognito. Applichiamo la LKC al nodo A:
+\[
+\frac{V - V_A}{R_1} = \frac{V_A}{R_2} + \frac{V_A}{R_3}.
+\]
+Da cui si ricava \(V_A\) e poi le correnti nei rami.
+\end{esempio}
+
+\section{Il teorema di Millman}
+
+\begin{concetto}
+Il \textbf{teorema di Millman} permette di calcolare la tensione ai capi di una rete formata da più rami in parallelo, ciascuno formato da un generatore di tensione in serie con un resistore. La tensione comune ai capi del parallelo è:
+\[
+V = \frac{\sum_k \frac{\mathcal{E}_k}{R_k}}{\sum_k \frac{1}{R_k}}.
+\]
+\end{concetto}
+
+Il teorema di Millman è una conseguenza diretta del metodo dei potenziali ai nodi applicato a un circuito con un solo nodo indipendente.
+
+\begin{esempio}
+\textbf{Due generatori in parallelo.} Si considerino due generatori \(\mathcal{E}_1 = 12\,\text{V}\) con \(R_1 = 2\,\Omega\) e \(\mathcal{E}_2 = 6\,\text{V}\) con \(R_2 = 3\,\Omega\), collegati in parallelo. La tensione comune è:
+\[
+V = \frac{\frac{12}{2} + \frac{6}{3}}{\frac{1}{2} + \frac{1}{3}} = \frac{6 + 2}{0{,}5 + 0{,}333} = \frac{8}{0{,}833} = 9{,}6\,\text{V}.
+\]
+\end{esempio}
+
+\section{Esercizi}
+
+\subsection{Domande di comprensione}
+
+\begin{enumerate}[leftmargin=1cm]
+  \item Che cos'è una corrente di maglia? Perché non è una corrente fisica?
+  \item In quali casi conviene usare il metodo delle correnti di maglia?
+  \item Enuncia il principio di sovrapposizione degli effetti. Quali sono i limiti di validità?
+  \item Che cosa significa ``spegnere un generatore''? Come si spegne un generatore di tensione? E uno di corrente?
+  \item Enuncia il teorema di Thévenin e spiega come si calcolano \(V_{Th}\) e \(R_{Th}\).
+  \item Enuncia il teorema di Norton. Che relazione c'è tra i parametri di Thévenin e quelli di Norton?
+  \item In che cosa consiste il metodo dei potenziali ai nodi? Perché conviene scegliere un nodo di riferimento?
+  \item Enuncia il teorema di Millman e spiega in quali circuiti si applica.
+\end{enumerate}
+
+\subsection{Esercizi sulle correnti di maglia}
+
+\begin{esercizio}
+\textbf{Esercizio svolto.} In un circuito con due maglie, le equazioni delle correnti di maglia sono:
+\[
+\begin{cases}
+5 i_1 - 2 i_2 = 12 \\
+-2 i_1 + 6 i_2 = -6
+\end{cases}
+\]
+Calcolare \(i_1\) e \(i_2\).
+
+\smallskip
+\textbf{Soluzione.} Dalla prima equazione:
+\[
+i_1 = \frac{12 + 2 i_2}{5}.
+\]
+Sostituendo nella seconda:
+\[
+-2 \cdot \frac{12 + 2 i_2}{5} + 6 i_2 = -6.
+\]
+Moltiplicando per 5:
+\[
+-24 - 4 i_2 + 30 i_2 = -30 \quad\Rightarrow\quad 26 i_2 = -6 \quad\Rightarrow\quad i_2 = -\frac{3}{13} \approx -0{,}23\,\text{A}.
+\]
+\[
+i_1 = \frac{12 + 2(-0{,}23)}{5} \approx 2{,}31\,\text{A}.
+\]
+\end{esercizio}
+
+\textbf{Esercizi da svolgere.}
+\begin{enumerate}[leftmargin=1cm]
+  \item In un circuito a due maglie, le equazioni sono:
+  \[
+  \begin{cases}
+  4 i_1 - i_2 = 10 \\
+  -i_1 + 3 i_2 = 5
+  \end{cases}
+  \]
+  Calcolare \(i_1\) e \(i_2\).
+  \item In un circuito a due maglie, le equazioni sono:
+  \[
+  \begin{cases}
+  6 i_1 - 2 i_2 = 18 \\
+  -2 i_1 + 5 i_2 = -8
+  \end{cases}
+  \]
+  Calcolare \(i_1\) e \(i_2\).
+  \item In un circuito a tre maglie, le equazioni sono:
+  \[
+  \begin{cases}
+  3 i_1 - i_2 = 6 \\
+  -i_1 + 4 i_2 - i_3 = 0 \\
+  -i_2 + 2 i_3 = -3
+  \end{cases}
+  \]
+  Calcolare \(i_1\), \(i_2\) e \(i_3\).
+\end{enumerate}
+
+\subsection{Esercizi sulla sovrapposizione degli effetti}
+
+\begin{esercizio}
+\textbf{Esercizio svolto.} Un circuito è formato da due generatori \(\mathcal{E}_1 = 6\,\text{V}\) e \(\mathcal{E}_2 = 3\,\text{V}\) e due resistori \(R_1 = 2\,\Omega\) e \(R_2 = 4\,\Omega\) in serie. Calcolare la corrente usando la sovrapposizione degli effetti.
+
+\smallskip
+\textbf{Soluzione.} Con \(\mathcal{E}_2\) spento (cortocircuito):
+\[
+I' = \frac{\mathcal{E}_1}{R_1 + R_2} = \frac{6}{6} = 1\,\text{A}.
+\]
+Con \(\mathcal{E}_1\) spento:
+\[
+I'' = \frac{\mathcal{E}_2}{R_1 + R_2} = \frac{3}{6} = 0{,}5\,\text{A}.
+\]
+Se i due generatori sono concordi, la corrente totale è \(I = I' + I'' = 1{,}5\,\text{A}\).
+\end{esercizio}
+
+\textbf{Esercizi da svolgere.}
+\begin{enumerate}[leftmargin=1cm]
+  \item Un circuito ha due generatori \(\mathcal{E}_1 = 9\,\text{V}\) e \(\mathcal{E}_2 = 3\,\text{V}\) e un resistore \(R = 3\,\Omega\). Calcolare la corrente usando la sovrapposizione.
+  \item Un circuito ha due generatori in parallelo: \(\mathcal{E}_1 = 12\,\text{V}\) con \(R_1 = 4\,\Omega\) e \(\mathcal{E}_2 = 6\,\text{V}\) con \(R_2 = 2\,\Omega\). Calcolare la corrente in ciascun ramo usando la sovrapposizione.
+\end{enumerate}
+
+\subsection{Esercizi su Thévenin e Norton}
+
+\begin{esercizio}
+\textbf{Esercizio svolto.} Un circuito è formato da un generatore \(V = 10\,\text{V}\) e due resistori \(R_1 = 5\,\Omega\) e \(R_2 = 5\,\Omega\) in serie. Calcolare il circuito equivalente di Thévenin visto ai capi di \(R_2\).
+
+\smallskip
+\textbf{Soluzione.} \(V_{Th}\) è la tensione a vuoto ai capi di \(R_2\):
+\[
+V_{Th} = V \frac{R_2}{R_1 + R_2} = 10 \cdot \frac{5}{10} = 5\,\text{V}.
+\]
+\(R_{Th}\) è la resistenza vista dai terminali con il generatore spento:
+\[
+R_{Th} = R_1 \parallel R_2 = \frac{5 \cdot 5}{5+5} = 2{,}5\,\Omega.
+\]
+Il circuito equivalente di Thévenin è un generatore da \(5\,\text{V}\) in serie con \(2{,}5\,\Omega\).
+\end{esercizio}
+
+\textbf{Esercizi da svolgere.}
+\begin{enumerate}[leftmargin=1cm]
+  \item Un circuito è formato da \(V = 24\,\text{V}\), \(R_1 = 6\,\Omega\) e \(R_2 = 3\,\Omega\) in serie. Calcolare il circuito equivalente di Thévenin visto ai capi di \(R_2\).
+  \item Un circuito è formato da \(V = 9\,\text{V}\), \(R_1 = 1\,\text{k}\Omega\) e \(R_2 = 2\,\text{k}\Omega\) in serie. Calcolare il circuito equivalente di Thévenin e di Norton visto ai capi di \(R_2\).
+  \item Dato il circuito equivalente di Thévenin con \(V_{Th} = 6\,\text{V}\) e \(R_{Th} = 3\,\Omega\), calcolare i parametri del circuito equivalente di Norton.
+\end{enumerate}
+
+\subsection{Esercizi sui potenziali ai nodi e Millman}
+
+\begin{esercizio}
+\textbf{Esercizio svolto.} Un circuito ha un nodo A collegato a massa tramite \(R_1 = 2\,\Omega\), a un generatore \(V = 12\,\text{V}\) tramite \(R_2 = 4\,\Omega\), e a un altro generatore \(V_2 = 6\,\text{V}\) tramite \(R_3 = 3\,\Omega\). Calcolare il potenziale del nodo A.
+
+\smallskip
+\textbf{Soluzione.} Applichiamo Millman:
+\[
+V_A = \frac{\frac{12}{4} + \frac{6}{3}}{\frac{1}{2} + \frac{1}{4} + \frac{1}{3}} = \frac{3 + 2}{0{,}5 + 0{,}25 + 0{,}333} = \frac{5}{1{,}083} \approx 4{,}62\,\text{V}.
+\]
+\end{esercizio}
+
+\textbf{Esercizi da svolgere.}
+\begin{enumerate}[leftmargin=1cm]
+  \item Un circuito ha due generatori in parallelo: \(\mathcal{E}_1 = 10\,\text{V}\) con \(R_1 = 2\,\Omega\) e \(\mathcal{E}_2 = 5\,\text{V}\) con \(R_2 = 3\,\Omega\). Calcolare la tensione comune usando Millman.
+  \item Tre rami in parallelo hanno: \(\mathcal{E}_1 = 12\,\text{V}\), \(R_1 = 4\,\Omega\); \(\mathcal{E}_2 = 6\,\text{V}\), \(R_2 = 2\,\Omega\); \(\mathcal{E}_3 = 3\,\text{V}\), \(R_3 = 1\,\Omega\). Calcolare la tensione comune.
+  \item Un circuito ha un nodo A con tre resistori collegati a massa: \(R_1 = 1\,\Omega\), \(R_2 = 2\,\Omega\), \(R_3 = 3\,\Omega\), e un generatore \(V = 12\,\text{V}\) collegato tramite \(R_4 = 4\,\Omega\). Calcolare il potenziale del nodo A.
+\end{enumerate}

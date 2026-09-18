@@ -32,7 +32,7 @@
 \contentsline {subsection}{\numberline {1.9.4}Esercizi su lavoro e tensione}{16}{subsection.1.9.4}%
 \contentsline {subsection}{\numberline {1.9.5}Esercizi su corrente e resistenza}{17}{subsection.1.9.5}%
 \contentsline {subsection}{\numberline {1.9.6}Esercizi sul codice colori dei resistori}{17}{subsection.1.9.6}%
-\contentsline {chapter}{\numberline {2}Teoria dei circuiti elettrici}{19}{chapter.2}%
+\contentsline {chapter}{\numberline {2}Circuiti elettrici e leggi di Kirchhoff}{19}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Che cos'è un circuito elettrico}{19}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Il nodo}{20}{subsection.2.1.1}%
 \contentsline {subsection}{\numberline {2.1.2}La maglia}{20}{subsection.2.1.2}%
@@ -53,30 +53,8 @@
 \contentsline {paragraph}{Dimostrazione.}{27}{section*.7}%
 \contentsline {paragraph}{Proprietà.}{27}{section*.8}%
 \contentsline {subsection}{\numberline {2.6.1}Esempio numerico}{27}{subsection.2.6.1}%
-\contentsline {section}{\numberline {2.7}Resistori in serie e in parallelo}{28}{section.2.7}%
-\contentsline {subsection}{\numberline {2.7.1}Il collegamento in serie}{28}{subsection.2.7.1}%
-\contentsline {subsection}{\numberline {2.7.2}Il collegamento in parallelo}{28}{subsection.2.7.2}%
-\contentsline {subsubsection}{Il caso di due resistori in parallelo}{29}{section*.9}%
-\contentsline {subsection}{\numberline {2.7.3}Serie e parallelo combinati}{29}{subsection.2.7.3}%
-\contentsline {section}{\numberline {2.8}Esercizi}{30}{section.2.8}%
-\contentsline {subsection}{\numberline {2.8.1}Domande di comprensione}{30}{subsection.2.8.1}%
-\contentsline {subsection}{\numberline {2.8.2}Esercizi sui nodi}{30}{subsection.2.8.2}%
-\contentsline {subsection}{\numberline {2.8.3}Esercizi sulle maglie}{31}{subsection.2.8.3}%
-\contentsline {chapter}{\numberline {3}Resistori, serie e parallelo}{32}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Metodi di risoluzione delle reti}{33}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Il metodo delle correnti di maglia}{33}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}La procedura}{33}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Esempio di applicazione}{34}{subsection.4.1.2}%
-\contentsline {section}{\numberline {4.2}Il principio di sovrapposizione degli effetti}{35}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}La procedura}{35}{subsection.4.2.1}%
-\contentsline {section}{\numberline {4.3}Il teorema di Thévenin}{36}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Il teorema di Norton}{37}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Il metodo dei potenziali ai nodi}{38}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}La procedura}{38}{subsection.4.5.1}%
-\contentsline {section}{\numberline {4.6}Il teorema di Millman}{38}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Esercizi}{39}{section.4.7}%
-\contentsline {subsection}{\numberline {4.7.1}Domande di comprensione}{39}{subsection.4.7.1}%
-\contentsline {subsection}{\numberline {4.7.2}Esercizi sulle correnti di maglia}{39}{subsection.4.7.2}%
-\contentsline {subsection}{\numberline {4.7.3}Esercizi sulla sovrapposizione degli effetti}{40}{subsection.4.7.3}%
-\contentsline {subsection}{\numberline {4.7.4}Esercizi su Thévenin e Norton}{41}{subsection.4.7.4}%
-\contentsline {subsection}{\numberline {4.7.5}Esercizi sui potenziali ai nodi e Millman}{41}{subsection.4.7.5}%
+\contentsline {section}{\numberline {2.7}Esercizi}{27}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Domande di comprensione}{27}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Esercizi sui nodi}{28}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Esercizi sulle maglie}{29}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}Esercizi combinati (nodi e maglie)}{29}{subsection.2.7.4}%

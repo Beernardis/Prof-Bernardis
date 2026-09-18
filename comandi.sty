@@ -125,9 +125,17 @@
 }
 
 % --- Generatore Ideale Standard ---
+% Sintassi: \generatore[opzioni]{x}{y}
+% Opzioni: rot, label, label dx, label dy, label rot
 \newcommand{\generatore}[3][]{%
   \begin{scope}[shift={(#2,#3)}]
-    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \pgfkeys{/tikz/componente/.cd,
+      rot=0,
+      label=,
+      label dx=0,
+      label dy=0,
+      label rot=0,
+      #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
 
     \begin{scope}[rotate=\compRot]
@@ -139,7 +147,7 @@
       \coordinate (center) at (0,0);
     \end{scope}
 
-    \renderLabel{0.65}
+    \renderLabelCartesian
   \end{scope}
 }
 
