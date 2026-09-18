@@ -1,5 +1,6 @@
 {
   "latex-workshop.latex.outDir": "%DIR%/.build",
+
   "latex-workshop.latex.tools": [
     {
       "name": "pdflatex",
@@ -8,20 +9,30 @@
         "-synctex=1",
         "-interaction=nonstopmode",
         "-file-line-error",
-        "-aux-directory=%DIR%/.build",
         "-output-directory=%DIR%/.build",
         "%DOC%"
       ],
       "env": {}
     }
   ],
+
   "latex-workshop.latex.recipes": [
     {
       "name": "pdflatex",
-      "tools": [
-        "pdflatex"
-      ]
+      "tools": ["pdflatex"]
     }
   ],
-  "latex-workshop.latex.clean.subfolder.enabled": true
+
+  "latex-workshop.latex.clean.subfolder.enabled": true,
+
+  "latex-workshop.intellisense.command.user": {
+    "resistoreANSI": "\\resistoreANSI[${1:rot=0, label=$R_1$}]{${2:x}}{${3:y}}$0",
+    "resistoreIEC":  "\\resistoreIEC[${1:rot=0, label=$R_1$}]{${2:x}}{${3:y}}$0",
+    "batteria":      "\\batteria[${1:rot=0, label=$V$}]{${2:x}}{${3:y}}$0",
+    "voltmetro":     "\\voltmetro[${1:rot=0, label=voltmetro}]{${2:x}}{${3:y}}$0",
+    "amperometro":   "\\amperometro[${1:rot=0, label=amperometro}]{${2:x}}{${3:y}}$0",
+    "massa":         "\\massa[${1:rot=0}]{${2:x}}{${3:y}}$0",
+    "generatore":           "\\generatore[${1:rot=0, label=$V$}]{${2:x}}{${3:y}}$0",
+    "generatoreSpiegazione":"\\generatoreSpiegazione[${1:rot=0, label=$V$}]{${2:x}}{${3:y}}$0"
+  }
 }

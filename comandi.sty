@@ -1,3 +1,5 @@
+% comandi.sty
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{comandi}
 
@@ -12,8 +14,16 @@
   componente/label/.initial=,
   componente/label pos/.initial=above,
   componente/scala/.initial=1,
+  % --- chiavi per il posizionamento CARTESIANO del label ---
+  componente/label dx/.initial=0,       % offset orizzontale del label rispetto al centro
+  componente/label dy/.initial=-1.3,    % offset verticale del label rispetto al centro
+  componente/label rot/.initial=-90,    % rotazione del testo (-90 = "punta verso il basso")
 }
 
+% ============================================================
+% HELPER: rendering del label "classico" (posizione tramite label pos)
+% Usato da generatori, massa, strumenti.
+% ============================================================
 \newcommand{\renderLabel}[1]{%
   \edef\tempLabel{\pgfkeysvalueof{/tikz/componente/label}}%
   \ifx\tempLabel\empty\else
@@ -21,40 +31,73 @@
   \fi
 }
 
+% ============================================================
+% HELPER: rendering del label "cartesian" (label dx / label dy / label rot)
+% Usato da resistoreANSI e resistoreIEC.
+% Deve essere chiamato DOPO aver definito (center) nello scope.
+% ============================================================
+\newcommand{\renderLabelCartesian}{%
+  \edef\compLabelDX{\pgfkeysvalueof{/tikz/componente/label dx}}%
+  \edef\compLabelDY{\pgfkeysvalueof{/tikz/componente/label dy}}%
+  \edef\compLabelRot{\pgfkeysvalueof{/tikz/componente/label rot}}%
+  \edef\tempLabel{\pgfkeysvalueof{/tikz/componente/label}}%
+  \ifx\tempLabel\empty\else
+    \node[rotate=\compLabelRot, anchor=center, inner sep=2pt]
+      at (\compLabelDX, \compLabelDY) {\tempLabel};
+  \fi
+}
+
+% ============================================================
+% RESISTORI
+% ============================================================
 
 % --- Resistore ANSI (Zig-Zag) ---
-% Sintassi: \resistoreANSI[rot=90, label=$R_1$]{x}{y}
+% Sintassi: \resistoreANSI[opzioni]{x}{y}
+% Opzioni: rot, label, label dx, label dy, label rot
 \newcommand{\resistoreANSI}[3][]{%
   \begin{scope}[shift={(#2,#3)}]
-    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \pgfkeys{/tikz/componente/.cd,
+      rot=0,
+      label=,
+      label dx=0,
+      label dy=0,
+      label rot=0,
+      #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
-    
+
     \begin{scope}[rotate=\compRot]
       \draw[thick] (-1,0) -- (-0.6,0)
         -- (-0.5,0.25) -- (-0.3,-0.25) -- (-0.1,0.25) -- (0.1,-0.25)
         -- (0.3,0.25) -- (0.5,-0.25) -- (0.6,0) -- (1,0);
       \coordinate (center) at (0,0);
     \end{scope}
-    
-    \renderLabel{0.35}
+
+    \renderLabelCartesian
   \end{scope}
 }
 
 % --- Resistore IEC (Rettangolo) ---
-% Sintassi: \resistoreIEC[rot=0, label=$R_1$]{x}{y}
+% Sintassi: \resistoreIEC[opzioni]{x}{y}
+% Opzioni: rot, label, label dx, label dy, label rot
 \newcommand{\resistoreIEC}[3][]{%
   \begin{scope}[shift={(#2,#3)}]
-    \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
+    \pgfkeys{/tikz/componente/.cd,
+      rot=0,
+      label=,
+      label dx=0,
+      label dy=0,
+      label rot=-90,
+      #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
-    
+
     \begin{scope}[rotate=\compRot]
       \draw[thick] (-1,0) -- (-0.6,0);
       \draw[thick, fill=white] (-0.6,-0.25) rectangle (0.6,0.25);
       \draw[thick] (0.6,0) -- (1,0);
       \coordinate (center) at (0,0);
     \end{scope}
-    
-    \renderLabel{0.35}
+
+    \renderLabelCartesian
   \end{scope}
 }
 
@@ -67,7 +110,7 @@
   \begin{scope}[shift={(#2,#3)}]
     \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
-    
+
     \begin{scope}[rotate=\compRot]
       \draw[thick, fill=white] (0,0) circle (0.45);
       \draw[thick] (0,0.45) -- (0,0.9);
@@ -76,7 +119,7 @@
       \node[font=\bfseries\small] at (0,-0.2) {\textcolor{bluscuro}{-}};
       \coordinate (center) at (0,0);
     \end{scope}
-    
+
     \renderLabel{0.65}
   \end{scope}
 }
@@ -86,16 +129,16 @@
   \begin{scope}[shift={(#2,#3)}]
     \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=above, #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
-    
+
     \begin{scope}[rotate=\compRot]
       \draw[thick, fill=white] (0,0) circle (0.45);
       \draw[thick] (0,0.45) -- (0,0.9);
       \draw[thick] (0,-0.45) -- (0,-0.9);
-      \draw[thick] (0,-0.25) -- (0,0.25);
-      \node[font=\bfseries\small] at (-0.2,0.25) {+};
+      \draw[thick] (0,-0.45) -- (0,0.45);
+      \node[font=\bfseries] at (-0.25,0.6) {+};
       \coordinate (center) at (0,0);
     \end{scope}
-    
+
     \renderLabel{0.65}
   \end{scope}
 }
@@ -109,17 +152,20 @@
   \begin{scope}[shift={(#2,#3)}]
     \pgfkeys{/tikz/componente/.cd, rot=0, label=, label pos=right, #1}%
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
-    
+
     \begin{scope}[rotate=\compRot]
       \draw[thick] (0,0) -- (0,-0.25);
       \draw[thick, fill=black!10] (-0.3,-0.25) -- (0.3,-0.25) -- (0,-0.5) -- cycle;
       \coordinate (center) at (0,-0.25);
     \end{scope}
-    
+
     \renderLabel{0.4}
   \end{scope}
 }
 
+% ============================================================
+% STRUMENTI DI MISURA
+% ============================================================
 
 % --- Voltmetro con coordinate label flessibili ---
 \newcommand{\voltmetro}[3][]{%
@@ -136,7 +182,7 @@
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
     \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
     \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
-    
+
     % Disegno del componente ruotato
     \begin{scope}[rotate=\compRot]
       \node[draw, circle, thick, fill=white, minimum size=0.8cm, inner sep=0pt, font=\bfseries] (v_node) at (0,0) {V};
@@ -144,7 +190,7 @@
       \draw[thick] (0,-0.4) -- (0,-0.9);
       \coordinate (center) at (0,0);
     \end{scope}
-    
+
     % Gestione etichetta
     \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
     \ifx\lblText\empty
@@ -161,7 +207,6 @@
   \end{scope}
 }
 
-
 % --- Amperometro ---
 \newcommand{\amperometro}[3][]{%
   \begin{scope}[shift={(#2,#3)}]
@@ -177,18 +222,18 @@
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
     \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
     \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
-    
+
     \begin{scope}[rotate=\compRot]
       % Cerchio con la "A"
       \node[draw, circle, thick, fill=white, minimum size=0.8cm, inner sep=0pt, font=\bfseries] (a_node) at (0,0) {A};
-      
+
       % Reofori di collegamento
       \draw[thick] (0,0.4) -- (0,0.9);
       \draw[thick] (0,-0.4) -- (0,-0.9);
-      
+
       \coordinate (center) at (0,0);
     \end{scope}
-    
+
     % Gestione etichetta: coordinate manuali oppure posizione standard
     \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
     \ifx\lblText\empty
@@ -203,7 +248,9 @@
   \end{scope}
 }
 
-
+% ============================================================
+% BATTERIA
+% ============================================================
 
 % --- Batteria a Celle Multiple (Compatta Verticalmente) ---
 \newcommand{\batteria}[3][]{%
@@ -220,23 +267,22 @@
     \edef\compRot{\pgfkeysvalueof{/tikz/componente/rot}}%
     \edef\lblX{\pgfkeysvalueof{/tikz/componente/label x}}%
     \edef\lblY{\pgfkeysvalueof{/tikz/componente/label y}}%
-    
+
     % Disegno del componente ruotato
     \begin{scope}[rotate=\compRot]
       % Reofori di collegamento ai capi (adattati a 0.15cm)
       \draw[thick] (0,0.15) -- (0,0.4);
       \draw[thick] (0,-0.15) -- (0,-0.4);
-      
+
       % --- Simbolo Batteria (4 barrette ravvicinate) ---
       \draw[thick] (-0.3, 0.15) -- (0.3, 0.15);                % Polo + (lunga)
       \draw[line width=1.6pt] (-0.15, 0.05) -- (0.15, 0.05);   % Polo - (corta/spessa)
       \draw[thick] (-0.3, -0.05) -- (0.3, -0.05);              % Polo + (lunga)
       \draw[line width=1.6pt] (-0.15, -0.15) -- (0.15, -0.15); % Polo - (corta/spessa)
-      
-      
+
       \coordinate (center) at (0,0);
     \end{scope}
-    
+
     % Gestione etichetta
     \edef\lblText{\pgfkeysvalueof{/tikz/componente/label}}%
     \ifx\lblText\empty
@@ -252,19 +298,3 @@
     \fi
   \end{scope}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

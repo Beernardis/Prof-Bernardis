@@ -1,0 +1,62 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Carica, campo e grandezze elettriche}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}La carica elettrica}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Le particelle subatomiche}{2}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}La forza di Coulomb}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}L'analisi dimensionale della costante \(k\)}{4}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Il campo elettrico}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Definizione operativa}{5}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Il campo di una carica puntiforme}{5}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Campo di corpi positivi e negativi}{5}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Lavoro di una forza e lavoro elettrico}{6}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Il lavoro elettrico}{6}{subsection.1.4.1}%
+\contentsline {section}{\numberline {1.5}La tensione elettrica}{7}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}La tensione non dipende dal percorso}{7}{subsection.1.5.1}%
+\contentsline {section}{\numberline {1.6}La corrente elettrica}{9}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Leggi di Ohm}{9}{section.1.7}%
+\contentsline {subsubsection}{L'esperimento di Ohm}{9}{section*.2}%
+\contentsline {subsection}{\numberline {1.7.1}La prima legge di Ohm}{10}{subsection.1.7.1}%
+\contentsline {subsubsection}{Il grafico \(I\)-\(V\)}{10}{section*.3}%
+\contentsline {subsection}{\numberline {1.7.2}Il verso della corrente e il verso della tensione}{11}{subsection.1.7.2}%
+\contentsline {paragraph}{Perché i versi sono opposti.}{11}{section*.4}%
+\contentsline {subsection}{\numberline {1.7.3}La seconda legge di Ohm}{11}{subsection.1.7.3}%
+\contentsline {subsection}{\numberline {1.7.4}I resistori e la simbologia}{12}{subsection.1.7.4}%
+\contentsline {section}{\numberline {1.8}Il codice colori dei resistori}{12}{section.1.8}%
+\contentsline {subsection}{\numberline {1.8.1}Come calcolare il valore}{12}{subsection.1.8.1}%
+\contentsline {subsection}{\numberline {1.8.2}Le serie di valori normalizzati}{14}{subsection.1.8.2}%
+\contentsline {section}{\numberline {1.9}Esercizi}{14}{section.1.9}%
+\contentsline {subsection}{\numberline {1.9.1}Domande di comprensione}{14}{subsection.1.9.1}%
+\contentsline {subsection}{\numberline {1.9.2}Esercizi sulla forza di Coulomb}{15}{subsection.1.9.2}%
+\contentsline {subsection}{\numberline {1.9.3}Esercizi sul campo elettrico}{15}{subsection.1.9.3}%
+\contentsline {subsection}{\numberline {1.9.4}Esercizi su lavoro e tensione}{16}{subsection.1.9.4}%
+\contentsline {subsection}{\numberline {1.9.5}Esercizi su corrente e resistenza}{17}{subsection.1.9.5}%
+\contentsline {subsection}{\numberline {1.9.6}Esercizi sul codice colori dei resistori}{17}{subsection.1.9.6}%
+\contentsline {chapter}{\numberline {2}Circuiti elettrici e leggi di Kirchhoff}{19}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Che cos'è un circuito elettrico}{19}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Il nodo}{20}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}La maglia}{20}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}La legge di Kirchhoff alle Tensioni (legge delle maglie)}{21}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}La convenzione dei segni}{21}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Esempio di applicazione}{21}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Esempio con più generatori}{22}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}La legge di Kirchhoff alle Correnti (legge dei nodi)}{23}{section.2.3}%
+\contentsline {section}{\numberline {2.4}La massa}{23}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Perché serve un riferimento}{24}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Che cosa cambia e che cosa no}{24}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Il simbolo}{25}{subsection.2.4.3}%
+\contentsline {section}{\numberline {2.5}Partitore di tensione}{25}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Circuito con due resistori in serie}{25}{subsection.2.5.1}%
+\contentsline {paragraph}{Dimostrazione.}{25}{section*.5}%
+\contentsline {paragraph}{Proprietà.}{26}{section*.6}%
+\contentsline {subsection}{\numberline {2.5.2}Esempio numerico}{26}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Partitore di corrente}{26}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Circuito con due resistori in parallelo}{26}{subsection.2.6.1}%
+\contentsline {paragraph}{Dimostrazione.}{27}{section*.7}%
+\contentsline {paragraph}{Proprietà.}{27}{section*.8}%
+\contentsline {subsection}{\numberline {2.6.2}Esempio numerico}{27}{subsection.2.6.2}%
+\contentsline {section}{\numberline {2.7}Esercizi}{27}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Domande di comprensione}{27}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Esercizi sui nodi}{28}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Esercizi sulle maglie}{29}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}Esercizi combinati (nodi e maglie)}{29}{subsection.2.7.4}%

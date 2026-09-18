@@ -1,3 +1,5 @@
+% primo_capitolo.tex
+
 \chapter{Carica, campo e grandezze elettriche}
 
 \begin{concetto}
@@ -453,7 +455,7 @@ Consideriamo un resistore disposto orizzontalmente, percorso da una corrente \(I
 \begin{tikzpicture}[scale=1.2]
   % --- Resistore in orizzontale ---
 % Vecchio: \resistoreANSI[0]{0}{0}{\(R\)}
-  \resistoreANSI[label={$R$}]{0}{0}
+  \resistoreANSI[label=$R_1$, label dx = 0, label dy = 0.6]{0}{0}
   % --- Frecce della corrente (verso destra) ---
   \draw[-, thick, black] (-1.5,0) -- (-1.2,0);
   \draw[->, thick, blue] (-1.2,0) -- (-1,0);
@@ -527,7 +529,7 @@ Un componente progettato specificamente per avere una resistenza ben definita si
 \begin{tikzpicture}[scale=1]
 % Vecchio: \resistoreIEC{0}{0}{}
 \resistoreIEC{0}{0}  \node[below] at (0,-1) {\textbf{Simbolo IEC}};
-  \resistoreANSI{4}{0}{}
+\resistoreANSI{4}{0}
   \node[below] at (4,-1) {\textbf{Simbolo ANSI}};
 \end{tikzpicture}
 \end{figure}

@@ -170,8 +170,8 @@ I due generatori sono disposti in modo che \(\mathcal{E}_1\) favorisca la corren
 
   % --- Resistore R1 (lato superiore) ---
   % Sostituisci: \resistoreANSI[0]{3}{3}{}
-\resistoreANSI[rot=0]{3}{3}
-\resistoreANSI[rot=0]{3}{0}
+\resistoreANSI[rot=0, label = $R_1$, label dy = -0.5]{3}{3}
+\resistoreANSI[rot=0, label = $R_2$, label dy = 0.5]{3}{0}
 
   % --- Frecce per le tensioni (all'esterno della maglia) ---
 
@@ -193,7 +193,7 @@ I due generatori sono disposti in modo che \(\mathcal{E}_1\) favorisca la corren
 
   % Verso di percorrenza orario (freccia curva al centro)
   \draw[->, thick, green!60!black] (1.8,0.9) arc (170:10:1.2);
-  \node[green!60!black] at (3,1.4) {verso orario};
+  \node[green!60!black] at (3,1.2) {verso orario};
 \end{tikzpicture}
 \end{center}
 
@@ -356,28 +356,23 @@ Si consideri una serie di due resistori \(R_1\) e \(R_2\) alimentata da una tens
 \begin{center}
 \begin{tikzpicture}[scale=1]
   % Filo sinistro dal basso al generatore
-  \draw[thick] (0,0) -- (0,1);
+  \draw[thick] (0,0) -- (0,1.2);
   % Generatore
   \generatore{0}{2}{}
   \draw node[left] at (-0.5,2) {\(V_{\text{in}}\)};
   % Filo dal generatore al lato superiore
-  \draw[thick] (0,3) -- (0,4);
+  \draw[thick] (0,2.8) -- (0,4);
   % Filo superiore fino al resistore R1
   \draw[thick] (0,4) -- (1,4);
   % Resistore R1
-  \resistoreANSI{2}{4}{}
-  \draw node[above] at (2,4.3) {\(R_1\)};
-  % Filo dal resistore al lato destro
+  \resistoreANSI[label = $R_1$, label dy = -0.5]{2}{4}
+  \resistoreANSI[rot = 90, label = $R_2$, label dx = -0.6, label dy = 0]{4}{2}
+  
   \draw[thick] (3,4) -- (4,4);
-  % Filo destro fino al resistore R2
   \draw[thick] (4,4) -- (4,3);
-  % Resistore R2 (verticale, rotazione 90)
-  \draw node[left] at (3.7,2) {\(R_2\)};
-  % Filo dal resistore al basso
   \draw[thick] (4,1) -- (4,0);
-  % Filo inferiore
   \draw[thick] (4,0) -- (0,0);
-  % Massa sul filo inferiore
+
   \massa{4}{0}
 
   \draw[thick] (4,0) -- (4.5,0);
@@ -458,19 +453,18 @@ Si considerino due resistori \(R_1\) e \(R_2\) collegati in parallelo, alimentat
   \draw[thick] (0,0) -- (4,0);
 
   % Ramo sinistro con generatore
-  \draw[thick] (0,0) -- (0,1);
-  \generatore{0}{2}{}
-  \node[left] at (-0.7,2) {\(V_{\text{in}}\)};
-  \draw[thick] (0,3) -- (0,4);
+  \draw[thick] (0,0) -- (0,1.2);
+  \generatore{0}{2}
+  \draw[thick] (0,2.8) -- (0,4);
 
   % Ramo con R1 (verticale, x=2)
   \draw[thick] (2,4) -- (2,3);
-  \node[right] at (2.4,2) {\(R_1\)};
+  \resistoreANSI[rot=90, label=$R_1$, label dx = 0.5, label dy = 0]{2}{2}
   \draw[thick] (2,1) -- (2,0);
 
   % Ramo con R2 (verticale, x=4)
   \draw[thick] (4,4) -- (4,3);
-  \node[right] at (4.4,2) {\(R_2\)};
+  \resistoreANSI[rot=90, label=$R_2$, label dx = 0.5, label dy = 0]{4}{2}
   \draw[thick] (4,1) -- (4,0);
 
   % Corrente totale sul rail superiore
