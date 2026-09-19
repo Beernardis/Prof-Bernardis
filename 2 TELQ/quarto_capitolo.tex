@@ -85,13 +85,13 @@ La corrente di maglia non è una corrente fisica: è un artificio di calcolo. So
 
 Per la maglia di sinistra, applicando la LKT:
 \[
-V_1 - R_1 I_1 - R_3 I_1 - R_2 (I_1 - I_2) = 0.
+V_1 - R_1 I_1 - R_3 I_1 - R_2 I_1 + R_2 I_2 = 0.
 \]
-Il termine \(R_2(I_1 - I_2)\) tiene conto del fatto che il resistore \(R_3\) è percorso sia da \(I_1\) sia da \(I_2\), in versi opposti.
+Il termine \(+R_2 I_2\) tiene conto del fatto che il resistore \(R_2\) è percorso anche da \(I_2\) con verso opposto rispetto a \(I_1\).
 
 Per la maglia di destra:
 \[
--V_2 - R_4 I_2 - R_5 I_2 - R_2 (I_2 - I_1) = 0.
+-V_2 - R_4 I_2 - R_5 I_2 - R_2 I_2 + R_2 I_1 = 0.
 \]
 
 Raccogliendo i termini:
@@ -128,7 +128,7 @@ Il \textbf{principio di sovrapposizione degli effetti} afferma che in un circuit
 
 Spegnere un generatore significa:
 \begin{itemize}[leftmargin=1cm]
-  \item sostituire un \textbf{generatore di tensione} con un \textbf{corto circuito} (cioè un filo con resistenza nulla);
+  \item sostituire un \textbf{generatore di tensione} con un \textbf{corto circuito};
   \item sostituire un \textbf{generatore di corrente} con un \textbf{circuito aperto}.
 \end{itemize}
 
@@ -152,7 +152,6 @@ Riprendiamo lo stesso circuito dell'esempio precedente: due maglie, cinque resis
 
 \begin{center}
 \begin{tikzpicture}[scale=1]
-  % Nodi
   \coordinate (A) at (0,0);
   \coordinate (B) at (4,0);
   \coordinate (C) at (0,3);
@@ -160,7 +159,6 @@ Riprendiamo lo stesso circuito dell'esempio precedente: due maglie, cinque resis
   \coordinate (E) at (8,3);
   \coordinate (F) at (8,0);
 
-  % Rami
   \draw[thick] (A) -- (1, 0);
   \draw[thick] (B) -- (2.99, 0);
   \draw[thick] (B) -- (4, 0.5);
@@ -176,7 +174,6 @@ Riprendiamo lo stesso circuito dell'esempio precedente: due maglie, cinque resis
   \draw[thick] (6.98, 0) -- (F);
   \draw[thick] (5, 0) -- (B);
 
-  % Componenti
   \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
   \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
   \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
@@ -194,13 +191,14 @@ Riprendiamo lo stesso circuito dell'esempio precedente: due maglie, cinque resis
   \item si sommano algebricamente i due contributi per ottenere la corrente reale.
 \end{enumerate}
 
-\subsection*{Passo 1: acceso solo \(V_1\)}
+I valori numerici sono: \(R_1 = 1\,\Omega\), \(R_2 = 3\,\Omega\), \(R_3 = 1\,\Omega\), \(R_4 = 1\,\Omega\), \(R_5 = 1\,\Omega\), \(V_1 = 10\,\text{V}\), \(V_2 = 4\,\text{V}\).
+
+\subsubsection*{Passo 1: acceso solo \(V_1\)}
 
 Spegniamo \(V_2\) sostituendolo con un filo (corto circuito). Il circuito diventa:
 
 \begin{center}
 \begin{tikzpicture}[scale=1]
-  % Nodi
   \coordinate (A) at (0,0);
   \coordinate (B) at (4,0);
   \coordinate (C) at (0,3);
@@ -208,7 +206,6 @@ Spegniamo \(V_2\) sostituendolo con un filo (corto circuito). Il circuito divent
   \coordinate (E) at (8,3);
   \coordinate (F) at (8,0);
 
-  % Rami
   \draw[thick] (A) -- (1, 0);
   \draw[thick] (B) -- (2.99, 0);
   \draw[thick] (B) -- (4, 0.5);
@@ -219,12 +216,10 @@ Spegniamo \(V_2\) sostituendolo con un filo (corto circuito). Il circuito divent
   \draw[thick] (0, 2.4) -- (C);
   \draw[thick] (D) -- (5, 3);
   \draw[thick] (6.98, 3) -- (E);
-  % V2 spento: corto circuito (linea continua)
   \draw[thick] (8, 3) -- (8, 0);
   \draw[thick] (6.98, 0) -- (F);
   \draw[thick] (5, 0) -- (B);
 
-  % Componenti
   \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
   \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
   \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
@@ -234,13 +229,70 @@ Spegniamo \(V_2\) sostituendolo con un filo (corto circuito). Il circuito divent
 \end{tikzpicture}
 \end{center}
 
-\subsection*{Passo 2: acceso solo \(V_2\)}
+Con \(V_2\) spento, il resistore \(R_5\) viene collegato direttamente al nodo inferiore destro e il resistore \(R_4\) al nodo superiore destro, entrambi in parallelo al ramo di \(R_2\).
+
+Possiamo procedere in due modi: o ridurre il circuito, oppure applicare direttamente il partitore di tensione. Vediamo il metodo della riduzione.
+
+Il ramo di destra, formato da \(R_4\) e \(R_5\) in serie, ha resistenza:
+\[
+R_{45} = R_4 + R_5 = 1 + 1 = 2\,\Omega.
+\]
+
+Questo ramo è in parallelo a \(R_2\), quindi la resistenza equivalente del parallelo è:
+\[
+R_{2,45} = \frac{R_2 \cdot R_{45}}{R_2 + R_{45}} = \frac{3 \cdot 2}{3 + 2} = \frac{6}{5} = 1{,}2\,\Omega.
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,3);
+  \coordinate (D) at (4,3);
+
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (B) -- (4, 0.5);
+  \draw[thick] (D) -- (4, 2.5);
+  \draw[thick] (1, 3) -- (C);
+  \draw[thick] (2.99, 3) -- (D);
+  \draw[thick] (0, 0.6) -- (A);
+  \draw[thick] (0, 2.4) -- (C);
+
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=90, label=$R_{2,45}$, label dx=0.7, label dy=0]{4}{1.5}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
+  \generatore[rot=0, label=$V_1$, label dx=0.8]{0}{1.5}
+\end{tikzpicture}
+\end{center}
+
+Ora il circuito è una maglia unica formata da \(V_1\), \(R_1\), \(R_3\) e \(R_{2,45}\) in serie. La resistenza totale è:
+\[
+R_{\text{tot}}^{(1)} = R_1 + R_3 + R_{2,45} = 1 + 1 + 1{,}2 = 3{,}2\,\Omega.
+\]
+
+La corrente totale che circola nel circuito è:
+\[
+I_{\text{tot}}^{(1)} = \frac{V_1}{R_{\text{tot}}^{(1)}} = \frac{10}{3{,}2} = 3{,}125\,\text{A}.
+\]
+
+Questa corrente passa attraverso \(R_1\) e \(R_3\), poi arriva al parallelo \(R_2 \parallel R_{45}\) e si ripartisce. La corrente che attraversa \(R_2\) si calcola con il partitore di corrente:
+\[
+I_{R_2}^{(1)} = I_{\text{tot}}^{(1)} \cdot \frac{R_{45}}{R_2 + R_{45}} = 3{,}125 \cdot \frac{2}{3 + 2} = 3{,}125 \cdot 0{,}4 = 1{,}25\,\text{A}.
+\]
+
+Quindi il contributo di \(V_1\) alla corrente in \(R_2\) è:
+\[
+I_{R_2}^{(1)} = 1{,}25\,\text{A},
+\]
+diretta dall'alto verso il basso (cioè dal nodo superiore a quello inferiore).
+
+\subsubsection*{Passo 2: acceso solo \(V_2\)}
 
 Spegniamo \(V_1\) sostituendolo con un filo (corto circuito). Il circuito diventa:
 
 \begin{center}
 \begin{tikzpicture}[scale=1]
-  % Nodi
   \coordinate (A) at (0,0);
   \coordinate (B) at (4,0);
   \coordinate (C) at (0,3);
@@ -248,14 +300,12 @@ Spegniamo \(V_1\) sostituendolo con un filo (corto circuito). Il circuito divent
   \coordinate (E) at (8,3);
   \coordinate (F) at (8,0);
 
-  % Rami
   \draw[thick] (A) -- (1, 0);
   \draw[thick] (B) -- (2.99, 0);
   \draw[thick] (B) -- (4, 0.5);
   \draw[thick] (D) -- (4, 2.5);
   \draw[thick] (1, 3) -- (C);
   \draw[thick] (2.99, 3) -- (D);
-  % V1 spento: corto circuito (linea continua)
   \draw[thick] (0, 3) -- (0, 0);
   \draw[thick] (D) -- (5, 3);
   \draw[thick] (6.98, 3) -- (E);
@@ -264,7 +314,6 @@ Spegniamo \(V_1\) sostituendolo con un filo (corto circuito). Il circuito divent
   \draw[thick] (6.98, 0) -- (F);
   \draw[thick] (5, 0) -- (B);
 
-  % Componenti
   \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
   \resistoreANSI[rot=90, label=$R_2$, label dx=0.5, label dy=0]{4}{1.5}
   \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{3}
@@ -274,14 +323,74 @@ Spegniamo \(V_1\) sostituendolo con un filo (corto circuito). Il circuito divent
 \end{tikzpicture}
 \end{center}
 
-\subsection*{Passo 3: somma dei contributi}
+Con \(V_1\) spento, il resistore \(R_1\) viene collegato direttamente al nodo inferiore sinistro e il resistore \(R_3\) al nodo superiore sinistro, entrambi in parallelo al ramo di \(R_2\).
 
-La corrente nel ramo centrale è la somma algebrica dei due contributi:
+Il ramo di sinistra, formato da \(R_1\) e \(R_3\) in serie, ha resistenza:
 \[
-I_{R_2} = I_{R_2}^{(1)} + I_{R_2}^{(2)}.
+R_{13} = R_1 + R_3 = 1 + 1 = 2\,\Omega.
 \]
-Se i due contributi hanno lo stesso verso si sommano, se hanno verso opposto si sottraggono.
+
+Questo ramo è in parallelo a \(R_2\), quindi la resistenza equivalente del parallelo è:
+\[
+R_{2,13} = \frac{R_2 \cdot R_{13}}{R_2 + R_{13}} = \frac{3 \cdot 2}{3 + 2} = \frac{6}{5} = 1{,}2\,\Omega.
+\]
+
+Ora il circuito è una maglia unica formata da \(V_2\), \(R_4\), \(R_5\) e \(R_{2,13}\) in serie. La resistenza totale è:
+\[
+R_{\text{tot}}^{(2)} = R_4 + R_5 + R_{2,13} = 1 + 1 + 1{,}2 = 3{,}2\,\Omega.
+\]
+
+La corrente totale che circola nel circuito è:
+\[
+I_{\text{tot}}^{(2)} = \frac{V_2}{R_{\text{tot}}^{(2)}} = \frac{4}{3{,}2} = 1{,}25\,\text{A}.
+\]
+
+Questa corrente passa attraverso \(R_4\) e \(R_5\), poi arriva al parallelo \(R_2 \parallel R_{13}\) e si ripartisce. La corrente che attraversa \(R_2\) si calcola con il partitore di corrente:
+\[
+I_{R_2}^{(2)} = I_{\text{tot}}^{(2)} \cdot \frac{R_{13}}{R_2 + R_{13}} = 1{,}25 \cdot \frac{2}{3 + 2} = 1{,}25 \cdot 0{,}4 = 0{,}5\,\text{A}.
+\]
+
+Quindi il contributo di \(V_2\) alla corrente in \(R_2\) è:
+\[
+I_{R_2}^{(2)} = 0{,}5\,\text{A}.
+\]
+
+\subsubsection*{Passo 3: somma dei contributi}
+
+I due contributi hanno \textbf{verso concorde} nel ramo centrale:
+\begin{itemize}[leftmargin=1cm]
+  \item \(I_{R_2}^{(1)} = 1{,}25\,\text{A}\) diretto dall'alto verso il basso;
+  \item \(I_{R_2}^{(2)} = 0{,}5\,\text{A}\) diretto dall'alto verso il basso.
+\end{itemize}
+
+Prendiamo come verso positivo quello dall'alto verso il basso. Allora:
+\[
+I_{R_2} = I_{R_2}^{(1)} + I_{R_2}^{(2)} = 1{,}25 + 0{,}5 = 1{,}75\,\text{A}.
+\]
+
+La corrente nel ramo centrale è quindi \(0{,}75\,\text{A}\), diretta dall'alto verso il basso.
+
 \end{esempio}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Il teorema di Thévenin}
 
 \begin{concetto}
@@ -297,40 +406,254 @@ I due parametri del circuito equivalente si calcolano così:
 \begin{center}
 \begin{tikzpicture}[scale=1]
   % Rete originale
-  \draw[thick, fill=gray!10] (0,0) rectangle (2.5,2);
-  \node at (1.25,1) {Rete lineare};
+  \draw[thick, fill=gray!10] (-2,0) rectangle (2.5,2);
+  \node at (0.125,2.4) {Rete lineare};
   \draw[thick] (2.5,1.5) -- (3.5,1.5);
   \draw[thick] (2.5,0.5) -- (3.5,0.5);
+  \resistoreANSI[rot=90]{-1.6}{1}{}
+  \resistoreANSI[rot=90]{-1}{1}{}
+  \resistoreANSI[rot=90]{-0.4}{1}{}
+  \generatore[rot=0]{0.7}{1}{}
+  \draw[thick] (0.7,0) -- (0.7,0.11);
+  \draw[thick] (1.9,0) -- (1.9,0.11);
+  \draw[thick] (0.7,1.89) -- (0.7,2);
+  \draw[thick] (1.9,1.89) -- (1.9,2);
+  \generatore[rot=180]{1.9}{1}{}
+
+
   \filldraw (3.5,1.5) circle (0.05) node[right] {A};
   \filldraw (3.5,0.5) circle (0.05) node[right] {B};
 
   % Freccia di equivalenza
-  \draw[->, thick] (4.5,1) -- (5.5,1) node[midway,above] {\(\equiv\)};
+  \draw[->, thick] (4.5,1.2) -- (5.5,1.2) node[midway,below] {\(\equiv\)};
 
   % Circuito equivalente di Thévenin
   \draw[thick] (6.5,0.5) -- (6.5,1.5);
-  \generatore[rot=0, label=$V_{Th}$, label dx=0.7, label dy=0]{6.5}{1}{}
-  \draw[thick] (6.5,1.9) -- (6.5,2.5) -- (8,2.5);
-  \resistoreANSI[rot=0, label=$R_{Th}$, label dy=0.5]{7.25}{2.5}{}
-  \draw[thick] (8,2.5) -- (8.5,2.5) node[right] {A};
-  \draw[thick] (6.5,0.1) -- (6.5,-0.5) -- (8.5,-0.5) node[right] {B};
+  \generatore[rot=0, label=$V_{Th}$, label dx=0.85, label dy=0]{6.5}{1}{}
+  \draw[thick] (6.5,1.9) -- (6.5,2.5) -- (7.01, 2.5);
+  \draw[thick] (6.5,0.9) -- (6.5,0) -- (9, 0);
+  \resistoreANSI[rot=0, label=$R_{Th}$, label dy=0.5]{8}{2.5}{}
+  
+  \filldraw (9,2.5) circle (0.05) node[right] {A};
+  \filldraw (9,0) circle (0.05) node[right] {B};
 \end{tikzpicture}
 \end{center}
 
 \begin{esempio}
-\textbf{Calcolo del circuito equivalente.} Si consideri il circuito in figura, con \(V = 12\,\text{V}\), \(R_1 = 4\,\Omega\), \(R_2 = 6\,\Omega\). Vogliamo il circuito equivalente di Thévenin visto ai capi di \(R_2\).
+\textbf{Calcolo del circuito equivalente.} Si consideri il circuito usato negli esempi precedenti. Vogliamo il circuito equivalente di Thévenin visto ai capi di \(R_2\). Ridisegnamo il circuito per capire meglio dove poter identificare la porta AB:
 
-\textbf{Tensione di Thévenin.} Ai capi di \(R_2\) la tensione a vuoto è quella del partitore:
+
+
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,6);
+  \coordinate (D) at (4,6);
+  \coordinate (E) at (8,6);
+  \coordinate (F) at (8,0);
+
+  % Rami orizzontali
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (1, 6) -- (C);
+  \draw[thick] (2.99, 6) -- (D);
+  \draw[thick] (0, 2.4) -- (A);
+  \draw[thick] (0, 3.89) -- (C);
+  \draw[thick] (8, 4) -- (E);
+  \draw[thick] (8, 2.01) -- (F);
+  \draw[thick] (B) -- (F);
+  \draw[thick] (D) -- (E);
+  
+  \draw[thick] (4, 2) -- (4, 2.1);
+  \draw[thick] (4, 3.9) -- (4, 4);
+
+  % Ramo centrale: R4, R5 e V2
+  \resistoreANSI[rot=90, label=$R_4$, label dx=0.6, label dy=0]{4}{5}
+  \resistoreANSI[rot=90, label=$R_5$, label dx=0.6, label dy=0]{4}{1}
+  \generatore[rot=0, label=$V_2$, label dx=0.7, label dy=0]{4}{3}
+
+  % Componenti sugli altri rami
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{6}
+  \generatore[rot=0, label=$V_1$, label dx=0.8]{0}{3}
+
+  % R2 sul ramo destro
+  \resistoreANSI[rot=90, label=$R_2$, label dx=0.6, label dy=0]{8}{3}
+
+  % Porta AB ai capi di R2
+  \filldraw[red] (6, 6) circle (0.1);
+  \filldraw[red] (6, 0) circle (0.1);
+  \node[red, above right] at (6, 6) {\large{A}};
+  \node[red, below right] at (6, 0) {\large{B}};
+
+  % Etichetta della porta
+  \node[red, right] at (8.6, 1.5) {\textbf{porta AB}};
+\end{tikzpicture}
+\end{center}
+
+
+Procediamo quindi a staccare il resistore $R_2$ e calcoliamo la tensione letta sulla porta AB e la resistenza equivalente:
+
+
+
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (4,0);
+  \coordinate (C) at (0,6);
+  \coordinate (D) at (4,6);
+
+  % Rami orizzontali
+  \draw[thick] (A) -- (1, 0);
+  \draw[thick] (B) -- (2.99, 0);
+  \draw[thick] (1, 6) -- (C);
+  \draw[thick] (2.99, 6) -- (D);
+  \draw[thick] (0, 2.4) -- (A);
+  \draw[thick] (0, 3.89) -- (C);
+  \draw[thick] (B) -- (6, 0);
+  \draw[thick] (D) -- (6, 6);
+  
+  \draw[thick] (4, 2) -- (4, 2.1);
+  \draw[thick] (4, 3.9) -- (4, 4);
+
+  % Ramo centrale: R4, R5 e V2
+  \resistoreANSI[rot=90, label=$R_4$, label dx=0.6, label dy=0]{4}{5}
+  \resistoreANSI[rot=90, label=$R_5$, label dx=0.6, label dy=0]{4}{1}
+  \generatore[rot=0, label=$V_2$, label dx=0.7, label dy=0]{4}{3}
+
+  % Componenti sugli altri rami
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{2}{0}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{2}{6}
+  \generatore[rot=0, label=$V_1$, label dx=0.8]{0}{3}
+
+  
+  % Porta AB ai capi di R2
+  \filldraw[red] (6, 6) circle (0.1);
+  \filldraw[red] (6, 0) circle (0.1);
+  \node[red, above right] at (6, 6) {\large{A}};
+  \node[red, below right] at (6, 0) {\large{B}};
+
+
+\draw[->, thick, blue] (1.3,4) arc[start angle=140, end angle=-70, x radius=0.9, y radius=1.4];
+\node[blue] at (2.2,3.5) {$I_1$};
+
+
+
+  \draw[->, thick] (7.2,3.5) -- (8.7,3.5);
+  \draw[->, thick] (7.2,3) -- (8.7,3);
+  \draw[->, thick] (7.2,4) -- (8.7,4);
+  \draw[->, thick] (7.2,2.5) -- (8.7,2.5);
+
+
+
+
+
+
+
+
+\coordinate (E) at (10,0);
+  \coordinate (F) at (14,0);
+  \coordinate (G) at (10,6);
+  \coordinate (H) at (14,6);
+
+  % Rami orizzontali
+  \draw[thick] (E) -- (11, 0);
+  \draw[thick] (F) -- (12.99, 0);
+  \draw[thick] (11, 6) -- (G);
+  \draw[thick] (12.99, 6) -- (H);
+  \draw[thick] (G) -- (E);
+  \draw[thick] (F) -- (16, 0);
+  \draw[thick] (H) -- (16, 6);
+  
+  \draw[thick] (14, 1.99) -- (14, 4.01);
+
+  % Ramo centrale: R4, R5 e V2
+  \resistoreANSI[rot=90, label=$R_4$, label dx=0.6, label dy=0]{14}{5}
+  \resistoreANSI[rot=90, label=$R_5$, label dx=0.6, label dy=0]{14}{1}
+
+  % Componenti sugli altri rami
+  \resistoreANSI[rot=0, label=$R_1$, label dy=0.5]{12}{0}
+  \resistoreANSI[rot=0, label=$R_3$, label dy=-0.5]{12}{6}
+
+  
+  % Porta AB ai capi di R2
+  \filldraw[red] (16, 6) circle (0.1);
+  \filldraw[red] (16, 0) circle (0.1);
+  \node[red, above right] at (16, 6) {\large{A}};
+  \node[red, below right] at (16, 0) {\large{B}};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{tikzpicture}
+\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{Resistenza equivalente di Thévenin:} Spegniamo i generatori e guardiamo la resistenza tra A e B: \(R_1\) e \(R_3\) risultano in serie, così come \(R_5\) e \(R_5\). Queste due serie sono poi in parallelo tra loro:
 \[
-V_{Th} = V \frac{R_2}{R_1 + R_2} = 12 \cdot \frac{6}{4+6} = 7{,}2\,\text{V}.
+R_{Th} = \left(R_1 + R_3 \right) \parallel \left(R_4 + R_5 \right) = \frac{\left(R_1 + R_3 \right) \left(R_4 + R_5 \right)}{\left(R_1 + R_3 \right) + \left(R_4 + R_5 \right)} = \frac{2 \cdot 2}{2+2} = 1\,\Omega.
 \]
 
-\textbf{Resistenza di Thévenin.} Spegniamo il generatore (cortocircuito) e guardiamo la resistenza tra A e B: \(R_1\) e \(R_2\) risultano in parallelo.
+
+
+\textbf{Tensione di Thévenin.} Con il resistore \(R_2\) staccato, la porta AB è aperta e il circuito è formato da una sola maglia.
+Possiamo procedere applicando il metodo delle correnti di maglia per trovare la corrente che circola nella maglia al fine di determinare la tensione ai capi dei vari resistori, prendendo come riferimento un verso di corrente preso in senso orario:
+
 \[
-R_{Th} = R_1 \parallel R_2 = \frac{R_1 R_2}{R_1 + R_2} = \frac{4 \cdot 6}{4+6} = 2{,}4\,\Omega.
+V_1 - R_1 I_1 - R_3 I_1 - R_4 I_1 - R_5 I_1 - V_2 = 0
 \]
 
-Il circuito equivalente è quindi un generatore da \(7{,}2\,\text{V}\) in serie con un resistore da \(2{,}4\,\Omega\).
+\[
+I_1 = \frac{V_1- V_2}{R_1 + R_3 + R_4 + R_5} = \frac{10-4}{1+1+1+1} = 1,5\,\text{A}.
+\]
+
+Possiamo dunque calcolare la tensione tra A e B, a prescindere dal percorso che decidiamo di scegliere:
+
+\[V_{AB} = V_{Th} = V_1 - R_3 I_3 - R_1 I_1 = 10 - 1\cdot 1,5 - 1\cdot 1,5  = 7\, V\]
+\[V_{AB} = V_{Th} = V_2 + R_4 I_3 + R_5 I_3 = 4 + 1 \cdot 1,5 + 1 \cdot 1,5 = 7\, V\]
+
 \end{esempio}
 
 \section{Il teorema di Norton}

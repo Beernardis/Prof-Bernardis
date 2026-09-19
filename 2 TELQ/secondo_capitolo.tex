@@ -85,7 +85,7 @@ Saper distinguere tra maglie elementari e non elementari è importante perché, 
 \]
 Equivalentemente, la somma delle forze elettromotrici presenti nella maglia è uguale alla somma delle cadute di tensione sui resistori:
 \[
-\sum \mathcal{E} = \sum R\,I.
+\sum V = \sum R\,I.
 \]
 \end{concetto}
 
@@ -110,24 +110,24 @@ Il verso di percorrenza scelto è arbitrario: cambiandolo si ottiene un'equazion
 \subsection{Esempio di applicazione}
 
 \begin{esempio}
-\textbf{Circuito con un solo anello.} Si consideri un circuito formato da una pila con forza elettromotrice \(\mathcal{E} = 12\,[\text{V}]\) e due resistori in serie, \(R_1 = 4\,[\Omega]\) e \(R_2 = 2\,[\Omega]\). Calcolare la corrente che circola nel circuito.
+\textbf{Circuito con un solo anello.} Si consideri un circuito formato da una pila con forza elettromotrice \(V = 12\,[\text{V}]\) e due resistori in serie, \(R_1 = 4\,[\Omega]\) e \(R_2 = 2\,[\Omega]\). Calcolare la corrente che circola nel circuito.
 
 \smallskip
 \textbf{Soluzione.} Il circuito ha una sola maglia. Scegliamo come verso di percorrenza quello orario. Percorrendo la maglia:
 
 \begin{itemize}[leftmargin=1cm]
-  \item attraverso la pila si passa dal polo negativo al polo positivo: guadagno \(+\mathcal{E}\);
+  \item attraverso la pila si passa dal polo negativo al polo positivo: guadagno \(+V\);
   \item attraverso \(R_1\) la corrente ha lo stesso verso del percorso: caduta \(-R_1 I\);
   \item attraverso \(R_2\) la corrente ha lo stesso verso del percorso: caduta \(-R_2 I\).
 \end{itemize}
 
 La seconda legge di Kirchhoff fornisce
 \[
-\mathcal{E} - R_1 I - R_2 I = 0.
+V - R_1 I - R_2 I = 0.
 \]
 Da cui
 \[
-I = \frac{\mathcal{E}}{R_1 + R_2} = \frac{12}{4 + 2} = 2\,[\text{A}].
+I = \frac{V}{R_1 + R_2} = \frac{12}{4 + 2} = 2\,[\text{A}].
 \]
 \end{esempio}
 
@@ -136,10 +136,10 @@ I = \frac{\mathcal{E}}{R_1 + R_2} = \frac{12}{4 + 2} = 2\,[\text{A}].
 \begin{esempio}
 \textbf{Circuito con due generatori.} Si consideri una maglia singola formata da:
 \begin{itemize}[leftmargin=1cm]
-  \item due generatori \(\mathcal{E}_1 = 12\,[\text{V}]\) e \(\mathcal{E}_2 = 6\,[\text{V}]\);
+  \item due generatori \(V_1 = 12\,[\text{V}]\) e \(V_2 = 6\,[\text{V}]\);
   \item due resistori, \(R_1 = 3\,[\Omega]\) e \(R_2 = 1\,[\Omega]\).
 \end{itemize}
-I due generatori sono disposti in modo che \(\mathcal{E}_1\) favorisca la corrente nel verso orario, mentre \(\mathcal{E}_2\) si opponga. Calcolare la corrente \(I\) che circola nella maglia.
+I due generatori sono disposti in modo che \(V_1\) favorisca la corrente nel verso orario, mentre \(V_2\) si opponga. Calcolare la corrente \(I\) che circola nella maglia.
 
 \smallskip
 \textbf{Soluzione.} Scegliamo come verso di percorrenza quello orario. Rappresentiamo la maglia e indichiamo con frecce le tensioni incontrate lungo il percorso.
@@ -174,11 +174,11 @@ I due generatori sono disposti in modo che \(\mathcal{E}_1\) favorisca la corren
 
   % Generatore 1: dal basso verso l'alto (guadagno +E1)
   \draw[->, thick, rossoscuro] (-0.6,0.5) -- (-0.6,2.5);
-  \node[left, rossoscuro] at (-0.6,1.5) {\(+\mathcal{E}_1\)};
+  \node[left, rossoscuro] at (-0.6,1.5) {\(+V_1\)};
 
   % Generatore 2: dal basso verso l'alto (guadagno +E2)
   \draw[->, thick, rossoscuro] (6.6,0.5) -- (6.6,2.5);
-  \node[right, rossoscuro] at (6.6,1.5) {\(+\mathcal{E}_2\)};
+  \node[right, rossoscuro] at (6.6,1.5) {\(+V_2\)};
 
   % Resistore R1: verso orario (da sinistra a destra)
   \draw[->, thick, blue] (4,3.6) -- (2,3.6);
@@ -202,15 +202,15 @@ I due generatori sono disposti in modo che \(\mathcal{E}_1\) favorisca la corren
 
 Percorrendo la maglia in verso orario:
 \begin{itemize}[leftmargin=1cm]
-  \item attraverso \(\mathcal{E}_1\) si passa dal polo negativo al polo positivo: guadagno \(+\mathcal{E}_1\);
+  \item attraverso \(V_1\) si passa dal polo negativo al polo positivo: guadagno \(+V_1\);
   \item attraverso \(R_1\) e \(R_2\): caduta \(V_1 = -R_1 I\) e \(V_2 = -R_2 I\);
-  \item attraverso \(\mathcal{E}_2\) si passa dal polo positivo al polo negativo: guadagno \(-\mathcal{E}_2\);
+  \item attraverso \(V_2\) si passa dal polo positivo al polo negativo: guadagno \(-V_2\);
 \end{itemize}
 
 La legge di Kirchhoff alle Tensioni (LKT) fornisce:
 \[
-\mathcal{E}_1 - V_1 - \mathcal{E}_2 - V_2 = 0 \qquad\Longrightarrow\qquad
-\mathcal{E}_1 - R_1 I - \mathcal{E}_2 - R_2 I = 0.
+V_1 - V_1 - V_2 - V_2 = 0 \qquad\Longrightarrow\qquad
+V_1 - R_1 I - V_2 - R_2 I = 0.
 \]
 Sostituendo i valori:
 \[
@@ -403,7 +403,7 @@ Analogamente, la tensione ai capi di \(R_1\) sarebbe \(V_{R_1} = V_{\text{in}} \
 
 \paragraph{Proprietà.}
 Il resistore più grande ha ai suoi capi la tensione maggiore.
-\subsection{Esempio numerico}
+\subsubsection{Esempio numerico}
 
 Un partitore di tensione ha \(V_{\text{in}} = 12\,[\text{V}]\), \(R_1 = 4\,[\Omega]\), \(R_2 = 2\,[\Omega]\). Calcolare \(V_{\text{out}}\) ai capi di \(R_2\).
 
@@ -513,7 +513,7 @@ I_2 = I_{\text{tot}} \frac{R_1}{R_1 + R_2}
   \item Il ramo con resistenza maggiore è percorso da corrente minore.
 \end{itemize}
 
-\subsection{Esempio numerico}
+\subsubsection{Esempio numerico}
 
 Un partitore di corrente ha \(I_{\text{tot}} = 6\,[\text{A}]\), \(R_1 = 2\,[\Omega]\), \(R_2 = 4\,[\Omega]\). Calcolare \(I_1\) e \(I_2\).
 
@@ -527,7 +527,7 @@ I_2 = 6 \cdot \frac{2}{2+4} = 6 \cdot \frac{2}{6} = 2\,[\text{A}].
 
 Verifica: \(I_1 + I_2 = 4 + 2 = 6\,[\text{A}] = I_{\text{tot}}\).
 
-\section{Resistori in serie e in parallelo}
+\section{Resistenza equivalente}
 
 \begin{concetto}
 Due o più resistori possono essere collegati tra loro in due modi fondamentali: in \textbf{serie} o in \textbf{parallelo}. Da queste due configurazioni si ricava la \textbf{resistenza equivalente}, cioè il valore di un unico resistore che si comporta come l'insieme dei resistori considerati.
@@ -549,8 +549,8 @@ Due o più resistori sono collegati \textbf{in serie} quando sono disposti uno d
   \resistoreANSI[label=$R_3$, label dy=0.5]{6.5}{0}
   \draw[thick] (7.5,0) -- (8,0);
 
-  \draw[->, thick, blue] (0.2,0.4) -- (0.6,0.4) node[midway,above] {$I$};
-  \draw[->, thick, blue] (7.6,0.4) -- (8,0.4);
+  \draw[->, thick, blue] (0.1,0.4) -- (0.7,0.4) node[midway,above] {$I$};
+  \draw[->, thick, blue] (7.4,0.4) -- (8,0.4) node[midway,above] {$I$};
 \end{tikzpicture}
 \end{center}
 
@@ -600,6 +600,9 @@ Due o più resistori sono collegati \textbf{in parallelo} quando sono connessi t
   \filldraw (5,0) circle (0.05);
 
   \draw[->, thick, blue] (0.2,3.3) -- (0.8,3.3) node[midway,above] {$I$};
+  \draw[->, thick, red] (1,2.9) -- (1,2.3) node[midway,left] {$I_1$};
+  \draw[->, thick, red] (3, 2.9) -- (3,2.3) node[midway,left] {$I_2$};
+  \draw[->, thick, red] (5, 2.9) -- (5,2.3) node[midway, left] {$I_3$};
 \end{tikzpicture}
 \end{center}
 
@@ -618,7 +621,6 @@ Dividendo per \(V\):
 La resistenza equivalente di più resistori in parallelo è \textbf{sempre minore} della più piccola delle resistenze collegate. Aggiungere un ramo in parallelo offre alla corrente un percorso in più, quindi la resistenza complessiva diminuisce.
 \end{concetto}
 
-\subsubsection{Il caso di due resistori in parallelo}
 
 Per due soli resistori in parallelo la formula si semplifica:
 \[
@@ -667,6 +669,21 @@ Prima il parallelo:
 \[
 R_{23} = \frac{R_2 \cdot R_3}{R_2 + R_3} = \frac{20 \cdot 30}{20 + 30} = 12\,\Omega.
 \]
+
+\hrule
+\vspace{0.3cm}
+Si procede ridisegnando il circuito, sostituendo il parallelo $R_2 \parallel R_3$ con il resistore equivalente $R_{23}$:
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick] (0,1.5) -- (0.5,1.5);
+  \resistoreANSI[label=$R_1$, label dy=0.5]{1.5}{1.5}
+  \resistoreANSI[label=$R_{23}$, label dy=0.5]{3.5}{1.5}
+  \draw[thick] (4.5,1.5) -- (5,1.5);
+
+\end{tikzpicture}
+\end{center}
+
 Poi la serie:
 \[
 R_{eq} = R_1 + R_{23} = 10 + 12 = 22\,\Omega.
@@ -748,16 +765,16 @@ La corrente \(I_4\) esce dal nodo.
 \subsection{Esercizi sulle maglie}
 
 \begin{esercizio}
-\textbf{Esercizio svolto.} In una maglia sono presenti una pila con \(\mathcal{E} = 9\,[\text{V}]\) e tre resistori in serie, \(R_1 = 1\,[\Omega]\), \(R_2 = 2\,[\Omega]\), \(R_3 = 3\,[\Omega]\). Calcolare la corrente che circola.
+\textbf{Esercizio svolto.} In una maglia sono presenti una pila con \(V = 9\,[\text{V}]\) e tre resistori in serie, \(R_1 = 1\,[\Omega]\), \(R_2 = 2\,[\Omega]\), \(R_3 = 3\,[\Omega]\). Calcolare la corrente che circola.
 
 \smallskip
 \textbf{Soluzione.} Applichiamo la seconda legge di Kirchhoff scegliendo come verso di percorrenza quello orario:
 \[
-\mathcal{E} - R_1 I - R_2 I - R_3 I = 0.
+V - R_1 I - R_2 I - R_3 I = 0.
 \]
 Da cui
 \[
-I = \frac{\mathcal{E}}{R_1 + R_2 + R_3} = \frac{9}{1 + 2 + 3} = 1{,}5\,[\text{A}].
+I = \frac{V}{R_1 + R_2 + R_3} = \frac{9}{1 + 2 + 3} = 1{,}5\,[\text{A}].
 \]
 \end{esercizio}
 
@@ -766,7 +783,7 @@ I = \frac{\mathcal{E}}{R_1 + R_2 + R_3} = \frac{9}{1 + 2 + 3} = 1{,}5\,[\text{A}
 \begin{enumerate}[leftmargin=1cm]
   \item In una maglia ci sono una pila da \(6\,[\text{V}]\) e due resistori in serie da \(1\,[\Omega]\) e \(2\,[\Omega]\). Calcolare la corrente.
   \item In una maglia ci sono una pila da \(12\,[\text{V}]\) e tre resistori in serie da \(2\,[\Omega]\), \(3\,[\Omega]\) e \(5\,[\Omega]\). Calcolare la corrente.
-  \item In una maglia ci sono due pile in serie, \(\mathcal{E}_1 = 4{,}5\,[\text{V}]\) e \(\mathcal{E}_2 = 1{,}5\,[\text{V}]\), e un resistore \(R = 3\,[\Omega]\). Calcolare la corrente.
+  \item In una maglia ci sono due pile in serie, \(V_1 = 4{,}5\,[\text{V}]\) e \(V_2 = 1{,}5\,[\text{V}]\), e un resistore \(R = 3\,[\Omega]\). Calcolare la corrente.
   \item In una maglia ci sono una pila da \(9\,[\text{V}]\), un resistore \(R_1 = 2\,[\Omega]\) e un resistore incognito \(R_2\). Se la corrente vale \(1{,}5\,[\text{A}]\), calcolare \(R_2\).
   \item In una maglia circola una corrente di \(0{,}5\,[\text{A}]\). La pila ha una fem di \(6\,[\text{V}]\). Calcolare la resistenza totale del circuito.
 \end{enumerate}
