@@ -1,0 +1,13 @@
+# Cartelle di output
+**/.build/
+.build/
+
+# File temporanei di LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.pdf
