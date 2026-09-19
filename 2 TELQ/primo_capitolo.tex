@@ -136,7 +136,6 @@ Il campo elettrico di una carica puntiforme è quindi direttamente proporzionale
 
 \subsection{Campo di corpi positivi e negativi}
 
-Il campo elettrico ha un verso ben preciso, che dipende dal segno della carica che lo genera.
 
 \begin{concetto}
 \textbf{Linee di campo di una carica puntiforme}
@@ -170,6 +169,34 @@ Il campo elettrico è sempre diretto lungo la congiungente tra la carica che lo 
 \end{tikzpicture}
 \end{figure}
 
+
+
+\begin{esempio}
+\textbf{Il campo elettrico e il campo gravitazionale.}
+
+La Terra ha una massa enorme e, per questo, \textbf{genera attorno a sé un campo gravitazionale}. In ogni punto dello spazio vicino alla Terra, un oggetto lasciato libero risente di una forza diretta verso il centro della Terra. Questo campo esiste indipendentemente dal fatto che ci sia qualcuno a sentirlo: esiste perché c'è la Terra.\\
+
+Ora immagina di voler \textbf{misurare} il campo gravitazionale in un punto vicino alla superficie terrestre. Per farlo, potresti prendere un oggetto e lasciarlo cadere. Ma attenzione: se prendessi un oggetto enorme, come una seconda Luna, la sua stessa massa modificherebbe il campo gravitazionale terrestre nel punto in cui la metti. Il campo che misureresti non sarebbe più quello della Terra da sola, ma quello della Terra \emph{più} l'oggetto che hai aggiunto. Non avresti misurato il campo della Terra: avresti misurato un campo diverso.\\
+
+Per questo, per misurare il campo gravitazionale della Terra, si prende un oggetto \textbf{piccolissimo}, una persona per esempio. La sua massa è così piccola che la sua presenza \textbf{non modifica il campo gravitazionale della Terra}. Il campo che si misura è quindi davvero quello generato dalla Terra, non quello di un sistema Terra-persona.\\
+
+Questo è esattamente lo stesso ragionamento che si fa con il campo elettrico:
+
+\begin{itemize}[leftmargin=1cm]
+  \item La \textbf{Terra} è come la carica \(Q\) che genera il campo;
+  \item il \textbf{campo gravitazionale} della Terra è come il \textbf{campo elettrico} \(\vec{E}\) generato da \(Q\);
+  \item la \textbf{persona} è come la \textbf{carica di prova} \(q_0\);
+  \item la \textbf{forza} che la persona sente cadendo è come la \textbf{forza elettrica} \(\vec{F}\) che agisce sulla carica di prova.
+\end{itemize}
+
+La persona deve essere piccolissima, altrimenti modificherebbe il campo che vogliamo misurare. Allo stesso modo, la carica di prova \(q_0\) deve essere piccolissima, altrimenti la sua presenza altererebbe la configurazione delle cariche che generano il campo. Solo così possiamo dire di aver misurato il campo \emph{generato da \(Q\)}, e non un campo modificato dalla carica di prova stessa.\\
+
+Ed è per questo che il campo elettrico, definito come \(\vec{E} = \frac{\vec{F}}{q_0}\), \textbf{non dipende da \(q_0\)}: se la carica di prova raddoppia, la forza raddoppia, ma il loro rapporto resta lo stesso. Il campo è una proprietà del punto dello spazio, non della carica che vi si mette dentro.
+\end{esempio}
+
+
+
+
 \section{Lavoro di una forza e lavoro elettrico}
 
 
@@ -183,7 +210,8 @@ Se la forza e lo spostamento hanno la stessa direzione e lo stesso verso, il lav
 
 \begin{esempio}
     Il lavoro che compie la forza di gravità su un corpo che cade è positivo: la forza di gravità aiuta il corpo a muoversi e gli trasferisce energia.\\
-    Il lavoro che compie la forza di attrito su un corpo che scivola su un piano inclinato è negativo: la forza di attrito si oppone al movimento e sottrae energia al corpo.
+    Il lavoro che compie la forza di attrito su un corpo che scivola su un piano inclinato è negativo: la forza di attrito si oppone al movimento e sottrae energia al corpo.\\
+    Il lavoro che compie la forza di gravità su un corpo che si muove in orizzontale è nullo: la forza di gravità è perpendicolare allo spostamento e non trasferisce energia al corpo.
 \end{esempio}
 
 
@@ -193,7 +221,7 @@ Il lavoro è il modo con cui una forza trasferisce energia a un corpo. Un lavoro
 
 \subsection{Il lavoro elettrico}
 
-Nel caso della forza elettrica, il lavoro compiuto dalla forza di Coulomb su una carica che si sposta da un punto A a un punto B si chiama \textbf{lavoro elettrico}. Se la forza elettrica che agisce sulla carica è \(\vec{F}_e = Q\,\vec{E}\), e la carica si sposta di un tratto \(s\) lungo la direzione del campo, il lavoro elettrico è
+Nel caso della forza elettrica, il lavoro compiuto dalla forza di Coulomb su una carica che si sposta da un punto A a un punto B si chiama \textbf{lavoro elettrico}. Se la forza elettrica che agisce sulla carica è \(\vec{F}_e = Q\,\vec{E}\), e la carica si sposta di un tratto \(s\) lungo la direzione del campo, il lavoro elettrico è:
 \[
 L_e = F_e \cdot s = Q\,E\,s.
 \]
@@ -392,13 +420,9 @@ I \propto V.
 
 
 \subsection{La prima legge di Ohm}
-Il rapporto \(V/I\) è quindi costante per quel provino:
+Il rapporto \(V/I\) è quindi costante per quel provino e Ohm la chiamò \textbf{resistenza elettrica} e la indicò con \(R\):
 \[
-\frac{V}{I} = \text{costante}.
-\]
-Questa costante dipende dal provino, non dalla tensione applicata. Ohm la chiamò \textbf{resistenza elettrica} e la indicò con \(R\):
-\[
-\frac{V}{I} = R.
+\frac{V}{I} = \text{costante} = R.
 \]
 Questa è la \textbf{prima legge di Ohm}. Da essa si ricavano le due forme inverse:
 \[
@@ -625,9 +649,8 @@ con tolleranza \(\pm 5\%\).
 
 Quindi
 \[
-R = 270 \times 10^1\,[\Omega] = 2700\,[\Omega] = 2{,}7\,[\text{k}\Omega],
+R = 270 \times 10^1\,[\Omega] = 2700\,[\Omega] = 2{,}7\,[\text{k}\Omega] \pm 1\%,
 \]
-con tolleranza \(\pm 1\%\).
 \end{esempio}
 
 \begin{esempio}
